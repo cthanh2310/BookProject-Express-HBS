@@ -1,0 +1,82 @@
+.footer {
+  background-color: #2a9d8f; }
+
+.footer__info {
+  border-bottom: 1px solid #fff; }
+
+.footer__info-name {
+  color: var(--white-color);
+  margin-bottom: 3px; }
+
+.footer__info-introduce {
+  margin-top: 5px;
+  font-size: 1.4rem;
+  color: #fff;
+  font-weight: 500; }
+
+.footer__contact {
+  border-bottom: 1px solid #fff; }
+
+.footer__contact-about-me {
+  color: var(--white-color); }
+
+.about-me {
+  font-size: 1.6rem; }
+
+.about-me-list {
+  padding-left: 0;
+  list-style: none;
+  color: var(--white-color); }
+
+.about-me-item {
+  display: flex;
+  font-size: 1.4rem;
+  margin-top: 10px; }
+
+.about-me-icon {
+  margin-right: 7px; }
+
+.about-me-icon--hanoi {
+  margin-right: 10px; }
+
+.register__email-h1 {
+  color: var(--white-color); }
+
+.register__email-h2 {
+  color: var(--white-color); }
+
+.register__email-div {
+  margin-left: auto;
+  display: flex;
+  background-color: var(--contact-color);
+  border-radius: 10px;
+  overflow: hidden;
+  align-items: center;
+  height: 30px;
+  margin-bottom: 40px;
+  justify-content: space-around; }
+
+.register__email-input {
+  padding-left: 10px;
+  background-color: var(--contact-color);
+  width: 100%;
+  outline: none;
+  border: none;
+  font-size: 1.4rem; }
+
+.register__email-button {
+  background-color: var(--orange-color);
+  justify-content: center;
+  border: none;
+  border-radius: 9px;
+  width: 100px;
+  height: 100%; }
+
+.register__email-button:hover {
+  background-color: #f5af76;
+  cursor: pointer; }
+
+.register__email-h3 {
+  align-items: center;
+  font-size: 1.4rem;
+  margin: 0; }

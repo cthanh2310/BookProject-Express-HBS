@@ -1,0 +1,146 @@
+.cart {
+    height: 50px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    background-color: var(--red-color);
+    color: #fff;
+}
+.cart__product-h3 {
+  font-size: 1.6rem;
+}
+
+.cart__details-h3 {
+  font-size: 1.6rem;
+  font-weight: 500;
+}
+
+///
+.product{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background-color: #f5f5f5;
+}
+.product__info{
+    display: flex;
+}
+.product__info-img{
+    align-self: center;
+    width: 40px;
+    height: 40px;
+}
+.product__info-name{
+    color: var(--text-color);
+    font-size: 1.6rem;
+    margin-left: 10px;
+    font-weight: 600;
+}
+.product__bill-fee, .product__bill-fee-total{
+    font-weight: 400;
+    font-size: 1.4rem;
+
+}
+.product__bill--modifier{
+    display: flex;
+    align-items: center;
+
+}
+
+.product__bill-amount-math{
+    cursor: pointer;
+    height: 26px;
+    border: 1px solid #dcdcdc;
+    width: 26px;
+
+}
+.product__bill-amount-math:hover{
+    color: var(--red-color);
+    opacity: 0.8;
+}
+.product__bill-amount-span{
+    margin: auto 4px;
+    font-size: 1.6rem;
+    font-weight: 600;
+
+}
+.product__bill-amount-icon{
+    color: var(--text-color);
+    font-size: 1.4rem;
+}
+
+// Pay
+.pay__ship{
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+.pay__ship-fee{
+    font-size: 1.6rem;
+    color: var(--text-color);
+    margin: 0;
+}
+.pay__ship-total-text{
+    margin: 10px 0;
+    font-size: 1.6rem;
+    color: var(--red-color);
+}
+.pay__ship-total-h3{
+    color: var(--text-color);
+    font-size: 1.5rem;
+}
+
+// Personal info
+.personal__info{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.personal__info-form{
+    width: 46%;
+    margin: 20px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+.personal__info-name, .personal__info-address, .personal__info-phone-number,
+.personal__info-payment
+{
+    margin: 10px;
+}
+.personal__info-name-label, .personal__info-address-label, .personal__info-phone-number-label{
+    font-size: 1.5rem;
+    color: var(--text-color);
+    font-weight: 600;
+}
+.personal__info-name-input, .personal__info-address-input, .personal__info-phone-number-input{
+    border: 1px solid var(--orange-color);
+    margin-top: 6px;
+    border-radius: 3px;
+    outline: none;
+    min-width: 94%;
+    height: 22px;
+}
+.personal__info-name-input:hover, .personal__info-address-input:hover, .personal__info-phone-number-input:hover{
+    border-color: var(--primary-color);
+}
+.personal__info-payment{
+    display: flex;
+    justify-content: space-between;
+}
+.personal__info-payment-button {
+    background-color: var(--orange-color);
+    justify-content: center;
+    border: none;
+    font-size: 1.6rem;
+    color: #fff;
+    border-radius: 3px;
+    height: 28px;
+    font-weight: 500;
+    margin-top: 30px;
+}
+.personal__info-payment-button:hover{
+    background-color: #f5af76;
+    cursor: pointer;
+}
+.personal__info-payment-button--modifier{
+    margin-right: 35px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    padding-right: 5px;
+    padding-left: 5px;
+
+}
