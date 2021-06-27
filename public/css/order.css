@@ -1,0 +1,199 @@
+.order__title {
+  margin-top: -50px;
+  display: flex;
+  justify-content: center; }
+
+.order__title-h3 {
+  font-size: 2.3rem;
+  color: var(--text-color); }
+
+.order__status {
+  display: flex;
+  justify-content: space-around;
+  height: 70px;
+  border-bottom: 1px solid #999; }
+
+.order__status-h5 {
+  text-align: center;
+  width: 33.33%;
+  font-size: 1.6rem;
+  font-weight: 500;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-right: 1px solid #ccc; }
+
+.order__status-h5:last-child {
+  border-right: 0; }
+
+.order__status-h5:hover {
+  color: #fb3535;
+  font-weight: 600;
+  cursor: pointer; }
+
+.order__status-h5-modifier {
+  color: #fb3535;
+  font-weight: 600;
+  cursor: pointer; }
+
+.order__info {
+  height: 50px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  background-color: var(--red-color);
+  color: #fff; }
+
+.order__order__product-h3 {
+  font-size: 1.6rem; }
+
+.order__details-h3 {
+  font-size: 1.6rem;
+  font-weight: 500; }
+
+.oder__date-list {
+  list-style: none;
+  padding-left: 0; }
+
+.order__date-item--date {
+  font-size: 1.4rem;
+  margin-bottom: 5px; }
+
+.order__date-item--Total {
+  font-size: 1.6rem;
+  color: var(--red-color); }
+
+.order__product {
+  margin: 10px 0;
+  background-color: #f5f5f5; }
+
+.order__product-info {
+  display: flex; }
+
+.order__product-info-img {
+  align-self: center;
+  width: 40px;
+  height: 40px; }
+
+.order__product-info-name {
+  color: var(--text-color);
+  font-size: 1.6rem;
+  margin-left: 10px;
+  font-weight: 600; }
+
+.order__product-bill-fee, .order__product-bill-fee-total {
+  font-weight: 400;
+  font-size: 1.4rem; }
+
+.order__product-bill-fee-total {
+  margin-left: 8px; }
+
+.order__product-bill--modifier {
+  display: flex;
+  align-items: center; }
+
+.order__product-bill-amount-span {
+  margin: auto 4px;
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: var(--text-color); }
+
+.order__cancel {
+  padding: 20px;
+  display: flex;
+  justify-content: flex-end; }
+
+.order__cancel-button {
+  background-color: #ffb18e;
+  justify-content: center;
+  border: none;
+  border-radius: 3px;
+  width: 100px;
+  height: 30px;
+  color: var(--black-color);
+  font-size: 1.4rem;
+  transition: all linear 0.3s; }
+
+.order__cancel-button:hover {
+  background-color: var(--red-color);
+  color: #ffffee;
+  cursor: pointer; }
+
+.order__no-product {
+  margin: 30px 0;
+  display: none; }
+
+.order__no-product-h3 {
+  font-size: 1.5rem;
+  text-align: center; }
+
+.order__no-product-img {
+  display: block;
+  margin: auto; }
+
+.overlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+  z-index: 68;
+  animation: fadeIn 0.2s linear;
+  display: none; }
+
+@keyframes show {
+  from {
+    opacity: 0; }
+  to {
+    opacity: 1; } }
+
+.popup {
+  z-index: 69;
+  width: 300px;
+  position: fixed;
+  top: 25%;
+  right: 50%;
+  transform: translateX(50%);
+  background-color: white;
+  border-radius: 5px;
+  animation: show 0.2s linear;
+  display: none; }
+
+.popup__tile {
+  text-align: center;
+  font-size: 1.7rem; }
+
+.popup__description {
+  font-size: 1.5rem;
+  text-align: center; }
+
+.pop__up-button {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px; }
+
+.pop__up-button-exit {
+  background-color: #fff;
+  color: #106FFF;
+  border: none;
+  font-size: 1.4rem;
+  cursor: pointer;
+  margin: auto 10px; }
+
+.pop__up-button-exit:hover {
+  font-weight: 600; }
+
+.pop__up-button-ok {
+  background-color: #ffb18e;
+  justify-content: center;
+  border: none;
+  border-radius: 3px;
+  width: 100px;
+  height: 30px;
+  color: var(--black-color);
+  font-size: 1.4rem;
+  transition: all linear 0.3s;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.3); }
+
+.pop__up-button-ok:hover {
+  background-color: var(--red-color);
+  color: #ffffee;
+  cursor: pointer; }

@@ -1,1 +1,118 @@
-<h1>order</h1>
+<head>
+    <link rel="stylesheet" href="css/order.css">
+</head>
+<div class="popup">
+    <h3 class="popup__tile">Bạn chắc chắn?</h3>
+    <p class="popup__description">Bạn có thật sự muốn hủy đơn hàng?</p>
+    <form action="/my-order" class="pop__up-button">
+        <a class="pop__up-button-exit">Thoát</a>
+        <button class="pop__up-button-ok">Đồng ý</button>
+    </form>
+</div>
+<div class="grid wide">
+    <div class="row order__title">
+        <h3 class="order__title-h3">Đơn hàng của bạn</h3>
+    </div>
+    <div class="row order__status">
+        <h5 class="order__status-h5 order__status-h5-modifier">Đang chờ xử lí</h5>
+        <h5 class="order__status-h5">Đang giao hàng</h5>
+        <h5 class="order__status-h5">Đã giao hàng</h5>
+    </div>
+    <div class="order__have-products">
+        <div class="row order__date">
+            <ul class="oder__date-list">
+                <li class="order__date-item order__date-item--date">Date: 23/10/2000</li>
+                <li class="order__date-item order__date-item--Total">Total: 20.000đ</li>
+            </ul>
+        </div>
+        <div class="row order__info">
+            <div class="col l-6">
+                <div class="order__order__product">
+                    <h3 class="order__order__product-h3">Sản phẩm</h3>
+                </div>
+            </div>
+            <div class="col l-6">
+                <div class="row">
+                    <div class="col l-4">
+                        <div class="order__details">
+                            <h3 class="order__details-h3">Đơn giá</h3>
+                        </div>
+                    </div>
+                    <div class="col l-4">
+                        <div class="order__details">
+                            <h3 class="order__details-h3">Số lượng</h3>
+                        </div>
+                    </div>
+                    <div class="col l-4">
+                        <div class="order__details">
+                            <h3 class="order__details-h3">Thành tiền</h3>
+                        </div>
+                    </div>
+                </div>
+               
+            </div>
+        </div>
+        <div class="list__product">
+            <div class="row order__product">
+                <div class="col l-6">
+                    <div class="order__product-info">
+                        <img src="/images/no-cart.png" alt="" class="order__product-info-img">
+                        <h3 class="order__product-info-name">Đắc nhân tâm</h3>
+                    </div>
+                </div>
+                <div class="col l-6">
+                    <div class="row">
+                        <div class="col l-4 order__product-bill">
+                            <h3 class="order__product-bill-fee">10.000đ</h3>
+                        </div>
+                        <div class="col l-4 order__product-bill--modifier">
+                            <div class="order__product-bill-amount">
+                                <span id="order__product-bill-amount" class="order__product-bill-amount-span">1</span>
+                            </div>
+                        </div>
+                        <div class="col l-4 order__product-bill">
+                            <h3 class="order__product-bill-fee-total">10.000đ</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row order__product">
+                <div class="col l-6">
+                    <div class="order__product-info">
+                        <img src="/images/no-cart.png" alt="" class="order__product-info-img">
+                        <h3 class="order__product-info-name">Đắc nhân tâm</h3>
+                    </div>
+                </div>
+                <div class="col l-6">
+                    <div class="row">
+                        <div class="col l-4 order__product-bill">
+                            <h3 class="order__product-bill-fee">10.000đ</h3>
+                        </div>
+                        <div class="col l-4 order__product-bill--modifier">
+                            <div class="order__product-bill-amount">
+                                <span id="order__product-bill-amount" class="order__product-bill-amount-span">1</span>
+                            </div>
+                        </div>
+                        <div class="col l-4 order__product-bill">
+                            <h3 class="order__product-bill-fee-total">10.000đ</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="order__cancel">
+            <button class="order__cancel-button">Hủy đơn hàng</button>
+        </div>
+    </div>
+    <div class="order__no-product">
+        <img src="/images/no-cart.png" alt="" class="order__no-product-img">
+        <h3 class="order__no-product-h3">
+            Không có sản phẩm
+        </h3>
+    </div>
+
+</div>
+<div class="overlay">
+
+</div>
+<script src="javascripts/order.js"></script>
