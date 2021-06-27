@@ -44,7 +44,11 @@
   height: 160px;
   position: absolute;
   top: -30px;
-  right: 26px; }
+  right: 26px;
+  transition: transform linear 0.3s; }
+
+.header__body-logo-image:hover {
+  transform: rotate(10deg); }
 
 .cart__auth {
   position: relative;
