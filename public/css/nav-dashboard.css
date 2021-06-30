@@ -1,0 +1,109 @@
+.navigation {
+  position: fixed;
+  width: 300px;
+  height: 100%;
+  background-color: var(--red-color);
+  transition: 0.5s;
+  overflow: hidden; }
+
+.navigation.active {
+  width: 50px; }
+
+.navigation__list {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding-left: 0; }
+
+.navigation__list-item {
+  position: relative;
+  width: 100%;
+  list-style: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
+
+.navigation__list-item:first-child {
+  border-bottom: none; }
+
+.navigation__list-item:nth-child(1) {
+  margin-bottom: 20px; }
+
+.navigation__list-item:nth-child(1):hover {
+  background-color: transparent; }
+
+.navigation__list-item-link {
+  position: relative;
+  width: 100%;
+  display: flex;
+  font-weight: 500;
+  text-decoration: none;
+  color: white; }
+
+.navigation__list-item-link:hover {
+  border-left: 4px solid #00aeff;
+  color: #00ffea; }
+
+.navigation__list-item-link.click {
+  border-left: 4px solid #00aeff;
+  color: #00ffea; }
+
+.navigation__list-item-link h2 {
+  margin: 0; }
+
+.navigation__list-item-icon {
+  position: relative;
+  display: block;
+  min-width: 50px;
+  height: 50px;
+  line-height: 50px;
+  text-align: center; }
+
+.navigation__list-item-icon-dropdown {
+  display: flex;
+  justify-content: center;
+  font-size: 2rem;
+  transition: 0.6s;
+  align-items: center; }
+
+.navigation__list-item-icon-dropdown.rotate {
+  transform: rotate(-180deg); }
+
+.navigation__list-item-icon .fas {
+  color: #fff;
+  font-size: 24px; }
+
+.navigation__list-item-title {
+  position: relative;
+  display: block;
+  font-size: 1.6rem;
+  padding: 0 5px 0 10px;
+  height: 50px;
+  line-height: 50px;
+  white-space: nowrap; }
+
+@keyframes dropdown {
+  from {
+    transform: translateY(-50%); } }
+
+.navigation__list-item ul {
+  position: static;
+  animation: dropdown linear 0.2s;
+  list-style: none;
+  display: none; }
+
+.navigation__list-item ul.show {
+  display: block; }
+
+.navigation__list-item ul li a:hover {
+  color: #00ffea; }
+
+.navigation__list-item ul li {
+  line-height: 30px;
+  height: 30px;
+  border-bottom: none; }
+
+.navigation__list-item ul li a {
+  font-size: 1.4rem;
+  color: #fff;
+  padding-left: 30px;
+  text-decoration: none; }
