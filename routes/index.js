@@ -4,6 +4,7 @@ const orderRouter = require('./order.js');
 const authRouter = require('./auth.js');
 const productRouter = require('./product.js');
 const dashboardRouter = require('./dashboard.js');
+const adminRouter = require('./admin.js');
 function route(app){
     app.use('/', homeRouter);
 
@@ -16,6 +17,8 @@ function route(app){
     app.use('/product', productRouter);
 
     app.use('/dashboard', dashboardRouter);
+
+    app.use('/admin', adminRouter);
 }
 
 
