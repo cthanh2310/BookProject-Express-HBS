@@ -9,6 +9,12 @@ class adminController{
         res.render('book-manage', {layout: 'admin'});
 
     }
+    billManage(req, res, next){
+        res.render('bill-manage', {layout: 'admin'});
+    }
+    profile(req, res, next){
+        res.render('admin-profile', {layout: 'admin'});
+    }
 }
 
 module.exports = new adminController();
