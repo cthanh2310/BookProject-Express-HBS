@@ -167,7 +167,7 @@
             </div>
 
             <div class="form-group">
-                <label class="form-label">miêu tả</label>
+                <label class="form-label">mô tả</label>
                 <textarea name="description" id="description" class="form-control" rules="required" cols="30"
                     rows="10"></textarea>
                 <span class="form-message"></span>
@@ -198,6 +198,9 @@
                 <input id="image" name="image" rules="required" type="file" class="form-control">
                 <span class="form-message"></span>
             </div>
+            <div class="form-image">
+                <img src="/images/tuoi-tre-dang-gia-bao-nhieu.jpg" alt="">
+            </div>
 
             <div class="form-group form-group--modifier">
                 <button class="form-submit">Cập nhật</button>
@@ -206,37 +209,67 @@
         </form>
     </div>
 </div>
-<script>
-    var observe;
-    if (window.attachEvent) {
-        observe = function (element, event, handler) {
-            element.attachEvent('on' + event, handler);
-        };
-    }
-    else {
-        observe = function (element, event, handler) {
-            element.addEventListener(event, handler, false);
-        };
-    }
-    function init() {
-        var description = document.getElementById('description');
-        function resize() {
-            description.style.height = '25px';
-            description.style.height = description.scrollHeight + 'px';
-        }
-        /* 0-timeout to get the already changed description */
-        function delayedResize() {
-            window.setTimeout(resize, 0);
-        }
-        observe(description, 'change', resize);
-        observe(description, 'cut', delayedResize);
-        observe(description, 'paste', delayedResize);
-        observe(description, 'drop', delayedResize);
-        observe(description, 'keydown', delayedResize);
+<div class="overlay">
+    <div class="popup">
+        <h3 class="popup__tile">Bạn chắc chắn?</h3>
+        <p class="popup__description">Bạn có thật sự muốn xóa cuốn sách này?</p>
+        <form action="/admin/book-manage" class="pop__up-button">
+            <a class="pop__up-button-exit">Thoát</a>
+            <button class="pop__up-button-ok">Đồng ý</button>
+        </form>
+    </div>
 
-        description.focus();
-        description.select();
-        resize();
-    }
-    window.onload = init();
-</script>
+    <script>
+        var observe;
+        if (window.attachEvent) {
+            observe = function (element, event, handler) {
+                element.attachEvent('on' + event, handler);
+            };
+        }
+        else {
+            observe = function (element, event, handler) {
+                element.addEventListener(event, handler, false);
+            };
+        }
+        function init() {
+            var description = document.getElementById('description');
+            function resize() {
+                description.style.height = '25px';
+                description.style.height = description.scrollHeight + 'px';
+            }
+            /* 0-timeout to get the already changed description */
+            function delayedResize() {
+                window.setTimeout(resize, 0);
+            }
+            observe(description, 'change', resize);
+            observe(description, 'cut', delayedResize);
+            observe(description, 'paste', delayedResize);
+            observe(description, 'drop', delayedResize);
+            observe(description, 'keydown', delayedResize);
+
+            description.select();
+            resize();
+        }
+        function modal() {
+
+            var exitButton = document.querySelector('.pop__up-button-exit');
+            exitButton.onclick = function () {
+                var overlay = document.querySelector('.overlay');
+                var popup = document.querySelector('.popup');
+                popup.style.display = 'none';
+                overlay.style.display = 'none';
+            }
+            var orderCancelList = document.querySelectorAll('.btn-icon-remove');
+            orderCancelList.forEach(orderCancel => {
+                orderCancel.onclick = function () {
+                    var overlay = document.querySelector('.overlay');
+                    var popup = document.querySelector('.popup');
+                    popup.style.display = 'block';
+                    overlay.style.display = 'block';
+                }
+            })
+
+        }
+        window.onload = init();
+        window.onload = modal();
+    </script>
