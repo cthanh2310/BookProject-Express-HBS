@@ -31,12 +31,21 @@ class authController {
     }
     async register_post(req, res, next) {
         try {
-            const user = await users.create(req.body);
-            const token = jwt.sign({ userId: user.id }, process.env.SECRET_KEY);
-            res.status(200).json({
-                status: 'success',
-                data: { token, email: user.email }
-            })
+            if(req.body.password == req.body.confirmPassword){
+                const user = await users.create({
+                    email: req.body.email,
+                    password: req.body.password
+                })
+                const token = jwt.sign({ userId: user.id }, process.env.SECRET_KEY);
+                res.status(200).json({
+                    status: 'success',
+                    data: { token, email: user.email }
+                })
+            } else {
+                const err = new Error('Nhập mật khẩu không trùng khớp');
+                err.statusCode = 400;
+                return next(err);
+            }
 
         } catch (error) {
             next(error);
