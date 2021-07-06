@@ -7,6 +7,28 @@ class authController {
 
         res.render('login', { layout: 'auth' });
     }
+    async login_post(req, res, next) {
+        let user = await users.findOne({ email: req.body.email });
+        if (!user) {
+            const err = new Error('Email bạn nhập không chính xác!');
+            err.statusCode = 400;
+            return next(err);
+        }
+        if (bcrypt.compareSync(req.body.password, user.password)) {
+            const token = jwt.sign({ userId: user.id }, process.env.SECRET_KEY);
+            res.status(200).json({
+                status: 'success',
+                data: {
+                    token: token,
+                    email: user.email
+                },
+            })
+        } else {
+            const err = new Error('Mật khẩu nhập không chính xác');
+            err.statusCode = 400;
+            return next(err);
+        }
+    }
     async register_post(req, res, next) {
         try {
             const user = await users.create(req.body);
