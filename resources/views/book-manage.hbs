@@ -14,109 +14,19 @@
                 </tr>
             </thead>
             <tbody>
+                {{#each listBook}}
                 <tr>
-                    <td>Đời ngắn đừng ngủ dài</td>
-                    <td>2000-10-23</td>
-                    <td>23000</td>
-                    <td>Cuốn sách mô tả về cuộc sống chăn trâu của chàng sinh viên nghèo</td>
+                    <td>{{this.name}}</td>
+                    <td>{{this.dateOfSubmit}}</td>
+                    <td>{{this.price}}</td>
+                    <td>{{this.description}} </td>
                     <td>
-                        <button class="btn-icon-edit"><i class="fas fa-pencil-alt"></i></button>
+                        <button onclick="load('{{this._id}}')" class="btn-icon-edit"><i
+                                class="fas fa-pencil-alt"></i></button>
                         <button class="btn-icon-remove"><i class="fas fa-times-circle"></i></button>
                     </td>
                 </tr>
-                <tr>
-                    <td>TUổi trẻ đáng giá</td>
-                    <td>2007-10-12</td>
-                    <td>14555</td>
-                    <td>Cuốn sách mô tả về cuộc sống chăn trâu của chàng sinh viên nghèo</td>
-                    <td>
-                        <button class="btn-icon-edit"><i class="fas fa-pencil-alt"></i></button>
-                        <button class="btn-icon-remove"><i class="fas fa-times-circle"></i></button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Đời mà</td>
-                    <td>2001-01-06</td>
-                    <td>19000</td>
-                    <td>Cuốn sách mô tả về cuộc sống chăn trâu của chàng sinh viên nghèoCuốn sách mô tả về cuộc sống
-                        chăn trâu của chàng sinh viên nghèo</td>
-                    <td>
-                        <button class="btn-icon-edit" class="btn-icon-edit"><i class="fas fa-pencil-alt"></i></button>
-                        <button class="btn-icon-remove"><i class="fas fa-times-circle"></i></button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Đắc nhân tâm</td>
-                    <td>2031-11-17</td>
-                    <td>90210</td>
-                    <td>Cuốn sách </td>
-                    <td>
-                        <button class="btn-icon-edit"><i class="fas fa-pencil-alt"></i></button>
-                        <button class="btn-icon-remove"><i class="fas fa-times-circle"></i></button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Đời ngắn đừng ngủ dài</td>
-                    <td>2000-10-23</td>
-                    <td>23000</td>
-                    <td>Cuốn sách mô tả về cuộc sống chăn trâu của chàng sinh viên nghèo</td>
-                    <td>
-                        <button class="btn-icon-edit"><i class="fas fa-pencil-alt"></i></button>
-                        <button class="btn-icon-remove"><i class="fas fa-times-circle"></i></button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>TUổi trẻ đáng giá</td>
-                    <td>2007-10-12</td>
-                    <td>14555</td>
-                    <td>Cuốn sách mô tả về cuộc sống chăn trâu của chàng sinh viên nghèo</td>
-                    <td>
-                        <button class="btn-icon-edit"><i class="fas fa-pencil-alt"></i></button>
-                        <button class="btn-icon-remove"><i class="fas fa-times-circle"></i></button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Đời mà</td>
-                    <td>2001-01-06</td>
-                    <td>19000</td>
-                    <td>Cuốn sách mô tả về cuộc sống chăn trâu của chàng sinh viên nghèoCuốn sách mô tả về cuộc sống
-                        chăn trâu của chàng sinh viên nghèo</td>
-                    <td>
-                        <button class="btn-icon-edit" class="btn-icon-edit"><i class="fas fa-pencil-alt"></i></button>
-                        <button class="btn-icon-remove"><i class="fas fa-times-circle"></i></button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>TUổi trẻ đáng giá</td>
-                    <td>2007-10-12</td>
-                    <td>14555</td>
-                    <td>Cuốn sách mô tả về cuộc sống chăn trâu của chàng sinh viên nghèo</td>
-                    <td>
-                        <button class="btn-icon-edit"><i class="fas fa-pencil-alt"></i></button>
-                        <button class="btn-icon-remove"><i class="fas fa-times-circle"></i></button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Đời mà</td>
-                    <td>2001-01-06</td>
-                    <td>19000</td>
-                    <td>Cuốn sách mô tả về cuộc sống chăn trâu của chàng sinh viên nghèoCuốn sách mô tả về cuộc sống
-                        chăn trâu của chàng sinh viên nghèo</td>
-                    <td>
-                        <button class="btn-icon-edit" class="btn-icon-edit"><i class="fas fa-pencil-alt"></i></button>
-                        <button class="btn-icon-remove"><i class="fas fa-times-circle"></i></button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Đắc nhân tâm</td>
-                    <td>2031-11-17</td>
-                    <td>90210</td>
-                    <td>Cuốn sách </td>
-                    <td>
-                        <button class="btn-icon-edit"><i class="fas fa-pencil-alt"></i></button>
-                        <button class="btn-icon-remove"><i class="fas fa-times-circle"></i></button>
-                    </td>
-                </tr>
+                {{/each}}
             </tbody>
         </table>
         <div class="book__title-pagination">
@@ -144,7 +54,7 @@
     <div class="book__edit">
         <h3 class="book__edit-title">Cập nhật thông tin chi tiết từng cuốn sách tại đây.</h3>
 
-        <form action="" method="POST" class="form" id="edit-form">
+        <form action="/admin/book-manage" method="POST" enctype="multipart/form-data" class="form" id="edit-form">
             <div class="spacer"></div>
 
             <div class="form-group">
@@ -156,7 +66,7 @@
 
             <div class="form-group">
                 <label class="form-label">Ngày đăng</label>
-                <input id="date" name="date" rules="required" type="date" class="form-control">
+                <input id="dateOfSubmit" name="dateOfSubmit" rules="required" type="date" class="form-control">
                 <span class="form-message"></span>
             </div>
 
@@ -176,10 +86,10 @@
             <div class="form-group">
                 <label class="form-label">Thể loại</label>
                 <select name="category" id="category">
-                    <option value="volvo">Đời sống</option>
-                    <option value="saab">Tiểu thuyết</option>
-                    <option value="opel">Lãng mạn</option>
-                    <option value="audi">Trinh thám</option>
+                    <option value="Đời sống">Đời sống</option>
+                    <option value="Tiểu thuyết">Tiểu thuyết</option>
+                    <option value="Lãng mạn">Lãng mạn</option>
+                    <option value="Trinh thám">Trinh thám</option>
                 </select>
                 <span class="form-message"></span>
             </div>
@@ -195,16 +105,16 @@
             </div>
             <div class="form-group">
                 <label class="form-label">Tải ảnh sản phẩm</label>
-                <input id="image" name="image" rules="required" type="file" class="form-control">
+                <input id="load-image" name="image" rules="required" type="file" class="form-control">
                 <span class="form-message"></span>
             </div>
             <div class="form-image">
-                <img src="/images/tuoi-tre-dang-gia-bao-nhieu.jpg" alt="">
+                <img id="image" src="/images/tuoi-tre-dang-gia-bao-nhieu.jpg" alt="">
             </div>
 
             <div class="form-group form-group--modifier">
-                <button class="form-submit">Cập nhật</button>
-                <button class="form-submit">Thêm mới</button>
+                {{!-- <button class="form-submit">Cập nhật</button> --}}
+                <button id="form-submit" class="form-submit">Thêm mới</button>
             </div>
         </form>
     </div>
@@ -231,6 +141,9 @@
                 element.addEventListener(event, handler, false);
             };
         }
+        ////
+
+
         function init() {
             var description = document.getElementById('description');
             function resize() {
@@ -270,6 +183,57 @@
             })
 
         }
+        function load(id) {
+            $.ajax({
+                url: '/admin/book-manage/store',
+                type: 'POST'
+            })
+                .done(books => {
+                    books.forEach(book => {
+                        if (book._id == id.toString()) {
+                            document.querySelector('#name').focus();
+                            document.querySelector('#name').value = book.name;
+                            // book.dateOfSubmit = moment().format('YYYY-MM-DD');
+                            document.querySelector('#dateOfSubmit').value = book.dateOfSubmit;
+                            document.querySelector('#price').value = book.price;
+                            document.querySelector('#description').value = book.description;
+                            document.querySelector('#category').value = book.category;
+                            document.querySelector('#author').value = book.author;
+                            document.querySelector('#publisher').value = book.publisher;
+                            document.querySelector('#image').src = '/' + book.image;
+                        }
+                    })
+                })
+        }
+        // ajax show message!
+        const form = document.getElementById("edit-form")
+        form.addEventListener("submit", function (event) {
+            event.preventDefault();
+            var formData = new FormData(this);
+            var file = $('#load-image').get(0).files;
+            formData.append('image', file)
+            for (var value of formData.values()) {
+                console.log(value);
+            }
+            $.ajax({
+                url: '/admin/book-manage',
+                type: 'POST',
+                data: formData,
+                cache: false,
+                contentType: false,
+                processData: false,
+                method: 'POST',
+            }).done(function (data) {
+                // If successful
+                console.log(data);
+            }).fail(function (jqXHR, textStatus, errorThrown) {
+                // If fail
+                console.log(textStatus + ': ' + errorThrown);
+            });
+
+
+
+        });
         window.onload = init();
         window.onload = modal();
     </script>

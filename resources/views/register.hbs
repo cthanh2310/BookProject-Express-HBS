@@ -3,42 +3,48 @@
 </head>
 <div class="grid wide">
     <div class="row auth-form__row">
-        
+
         <div class="col l-6 auth-form__row--center">
             <div class="auth-form">
-                <form action="/auth/register" method="post" class="auth-form__app__container">
+                <form action="/auth/register" method="post" id="register_form" class="auth-form__app__container">
                     <div class="auth-form__header">
                         <h3 class="auth-form__heading">Đăng ký</h3>
                         <a href="/auth/login" class="auth-form__switch-btn">Đăng nhập</a>
                     </div>
                     <div class="auth-form__form">
                         <div class="auth-form__group">
-                            <input type="text" placeholder="Email của bạn" name="email" class="auth-form__input">
+                            <input type="text" placeholder="Email của bạn" name="email" id="email"
+                                class="auth-form__input">
                         </div>
                         <div class="auth-form__group">
-                            <input type="password" placeholder="Mật khẩu của bạn" name="password" class="auth-form__input">
+                            <input type="password" placeholder="Mật khẩu của bạn" name="password" id="password"
+                                class="auth-form__input">
                         </div>
                         <div class="auth-form__group">
-                            <input type="password" placeholder="Nhập lại mật khẩu" name="confirmPassword" class="auth-form__input">
+                            <input type="password" placeholder="Nhập lại mật khẩu" name="confirmPassword"
+                                id="confirmPassword" class="auth-form__input">
                         </div>
                     </div>
                     <div class="auth-form__policy">
                         <div class="auth-form__policy-description">
                             <p class="auth-form__policy-description-p">
-                                Bằng việc đăng ký, bạn đã đồng ý với chúng tôi về <a href="#" class="auth-form__policy-description-a">Điều khoản dịch vụ</a> 
-                                <span>& </span> <a href="#" class="auth-form__policy-description-a">Chính sách bảo mật</a>
+                                Bằng việc đăng ký, bạn đã đồng ý với chúng tôi về <a href="#"
+                                    class="auth-form__policy-description-a">Điều khoản dịch vụ</a>
+                                <span>& </span> <a href="#" class="auth-form__policy-description-a">Chính sách bảo
+                                    mật</a>
                             </p>
                         </div>
                     </div>
                     <div class="auth-form__controls">
                         <a href="/" class=" btn--back btn--normal ">TRỞ LẠI</a>
-                        <button class="auth-form__controls-button btn--primary">ĐĂNG KÝ</button>
+                        <button id="register" class="auth-form__controls-button btn--primary">ĐĂNG KÝ</button>
                     </div>
                 </form>
                 <div class="auth-form__socials">
                     <a href="" class="auth-form__socials--facebook">
                         <i class="fab fa-facebook-square auth-form__socials-icon"></i>
-                        <span class="auth-form__socials-title auth-form__socials-title--span">Kết nối với Facebook</span>
+                        <span class="auth-form__socials-title auth-form__socials-title--span">Kết nối với
+                            Facebook</span>
                     </a>
                     <a href="" class="auth-form__socials--google">
                         <i class="fab fa-google auth-form__socials-icon"></i>
@@ -49,3 +55,45 @@
         </div>
     </div>
 </div>
+<script>
+    const form = document.getElementById("register_form")
+    form.addEventListener("submit", function (event) {
+        event.preventDefault();
+        /*    var formData = new FormData();
+            // get value in formData use Jquery
+            var x = $("form").serializeArray();
+            $.each(x, function (i, field) {
+                formData.append(field.name, field.value);
+            });
+            // console log formData not allowed so must use this way
+            for (var pair of formData.entries()) {
+                console.log(pair[0] + ', ' + pair[1]);
+            } */
+      /*  var formData = {
+            email: $("#email").val(),
+            password: $("#password").val()
+        } */
+        $.ajax({
+            url: '/auth/register',
+            type: 'POST',
+            contentType : "application/json",
+            data : JSON.stringify({
+                email: document.querySelector('#email').value,
+                password: document.querySelector('#password').value,
+                confirmPassword: document.querySelector('#confirmPassword').value,
+            }),
+            processData: false,
+            dataType: 'json',
+
+        }).done(function (data) {
+            // If successful
+            console.log("data: " + JSON.stringify(data));
+            alert(JSON.stringify(data.status));
+        }).fail(function (jqXHR, textStatus, errorThrown) {
+            // If fail
+            console.log(textStatus + ': ' + errorThrown);
+        });
+
+    });
+
+</script>

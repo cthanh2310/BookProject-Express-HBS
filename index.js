@@ -13,9 +13,10 @@ app.use(express.static(path.join(__dirname, 'public')));  //static file: use in 
 app.use(
     express.urlencoded({
         extended: true, // delete bug
+        limit: '50mb',
     }),
 );
-app.use(express.json());
+app.use(express.json({limit: '50mb'}));
 // XMLHTTP request, fetch, axios, ajax of jquery -->send database to server
 app.engine(
     'hbs',
