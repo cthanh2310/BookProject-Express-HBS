@@ -58,6 +58,11 @@
             <div class="spacer"></div>
 
             <div class="form-group">
+                <input id="id" name="id" rules="required" hidden="true" type="text"
+                    placeholder="VD:Đời ngắn đừng ngủ dài" class="form-control">
+                <span class="form-message"></span>
+            </div>
+            <div class="form-group">
                 <label class="form-label">Tên sách</label>
                 <input id="name" name="name" rules="required" type="text" placeholder="VD:Đời ngắn đừng ngủ dài"
                     class="form-control">
@@ -88,6 +93,9 @@
                 <select name="category" id="category">
                     <option value="Đời sống">Đời sống</option>
                     <option value="Tiểu thuyết">Tiểu thuyết</option>
+                    <option value="Thiếu nhi">Thiếu nhi</option>
+                    <option value="Kỹ năng">Kỹ năng</option>
+                    <option value="Hành động">Hành động</option>
                     <option value="Lãng mạn">Lãng mạn</option>
                     <option value="Trinh thám">Trinh thám</option>
                 </select>
@@ -109,12 +117,12 @@
                 <span class="form-message"></span>
             </div>
             <div class="form-image">
-                <img id="image" src="/images/tuoi-tre-dang-gia-bao-nhieu.jpg" alt="">
+                <img id="image" src="" alt="">
             </div>
 
             <div class="form-group form-group--modifier">
-                {{!-- <button class="form-submit">Cập nhật</button> --}}
-                <button id="form-submit" class="form-submit">Thêm mới</button>
+                <button id="updateBtn" class="form-submit">Cập nhật</button>
+                <button id="addBtn" class="form-submit">Thêm mới</button>
             </div>
         </div>
     </div>
@@ -186,12 +194,16 @@
         function load(id) {
             $.ajax({
                 url: '/admin/book-manage/store',
-                type: 'POST'
+                type: 'POST',
+                data: {
+                    id: id,
+                }
             })
                 .done(books => {
                     books.forEach(book => {
                         if (book._id == id.toString()) {
                             document.querySelector('#name').focus();
+                            document.querySelector('#id').value = book._id;
                             document.querySelector('#name').value = book.name;
                             // book.dateOfSubmit = moment().format('YYYY-MM-DD');
                             document.querySelector('#dateOfSubmit').value = book.dateOfSubmit;
@@ -205,8 +217,50 @@
                     })
                 })
         }
-        const buttonSubmit = document.getElementById('form-submit');
-        buttonSubmit.addEventListener('click', function (event) {
+        const updateButton = document.getElementById('updateBtn');
+        updateButton.addEventListener('click', function (event) {
+            event.preventDefault();
+
+            var id = document.querySelector('#id').value;
+            var name = document.querySelector('#name').value;
+            var dateOfSubmit = document.querySelector('#dateOfSubmit').value;
+            var price = document.querySelector('#price').value;
+            var description = document.querySelector('#description').value;
+            var category = document.querySelector('#category').value;
+            var author = document.querySelector('#author').value;
+            var publisher = document.querySelector('#publisher').value;
+            var myfile = document.querySelector('#myfile').files;
+            var formData = new FormData();
+
+            formData.append("id", id);
+            formData.append("name", name);
+            if(dateOfSubmit){
+                formData.append("dateOfSubmit", dateOfSubmit);
+            }
+            formData.append("price", price);
+            formData.append("description", description);
+            formData.append("category", category);
+            formData.append("author", author);
+            formData.append("publisher", publisher);
+            for (var i = 0; i < myfile.length; i++) {
+                formData.append("myfile", myfile[i]);
+            }
+            var contenttype = {
+                headers: {
+                    "Content-Type": "multipart/form-data"
+                }
+            };
+            axios.post('/admin/book-manage/update', formData, contenttype)
+                .then((response) => {
+                    console.log(response.data);
+                    alert(response.data.status);
+                })
+                .catch((error) => {
+                    console.log(error);
+                })
+        })
+        const addButton = document.getElementById('addBtn');
+        addButton.addEventListener('click', function (event) {
             console.log(2);
             event.preventDefault();
             var name = document.querySelector('#name').value;
@@ -237,7 +291,7 @@
                     "Content-Type": "multipart/form-data"
                 }
             };
-            axios.post('/admin/book-manage', formData, contenttype) 
+            axios.post('/admin/book-manage', formData, contenttype)
                 .then((response) => {
                     console.log(response);
                     alert(response.data.status);

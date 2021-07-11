@@ -43,6 +43,7 @@ router.post('/book-manage',upload.single('myfile'), adminController.addBook);
 
 router.post('/book-manage/store', adminController.bookManage_post);  // Store database to use Ajax
 
+router.post('/book-manage/update', upload.single('myfile'), adminController.updateBook); // Update
 
 
 
