@@ -1,7 +1,6 @@
 const users = require('../models/user');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
-const formidable = require('formidable');
 
 class authController {
     async login(req, res, next) {
