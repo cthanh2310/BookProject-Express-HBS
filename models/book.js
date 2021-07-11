@@ -34,7 +34,8 @@ const bookSchema = new mongoose.Schema({
     image: {
         type: String,
         required: [true,'Vui lòng thêm hình ảnh cho sách!']
-    }, cloudinary_id: {
+    }, 
+    cloudinary_id: {
         type: String,
     },
 })

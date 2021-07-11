@@ -45,31 +45,32 @@
             </div>
         </div>
         
+                   {{#with book}}
         <div class="col l-9">
             <div class="row xsm-gutter">
                 <div class="col l-4 product__image">
-                    <img src="/images/doi-ngan-dung-ngu-dai.jpg" alt="" class="product__image--img">
+                    <img src="{{image}}" alt="" class="product__image--img">
 
                 </div>
                 <div class="col l-6 product__info">
                     <ul class="product__info-list">
                         <li class="product__info-item">
-                            <h3>Đời ngắn đừng ngủ dài</h3>
+                            <h3>{{name}}</h3>
                         </li>
                         <li class="product__info-item">
-                            Nhà cung cấp: NXB trẻ
+                            Nhà cung cấp: {{publisher}}
                         </li>
                         <li class="product__info-item product__info-item--price">
-                            25.000đ
+                            {{price}}đ
                         </li>
                         <li class="product__info-item">
-                            Thể loại: Đời sống
+                            Thể loại: {{category}}
                         </li>
                         <li class="product__info-item">
-                            Ngày xuất bản: 23/10/2000
+                            Ngày xuất bản: {{dateOfSubmit}}
                         </li>
                         <li class="product__info-item">
-                            Tác giả: thanhsimp_
+                            Tác giả: {{author}}
                         </li>
                         <li class="product__info-item">
                             <div class="product__info-amount">
@@ -84,12 +85,13 @@
                         </li>
                         <li class="product__info-item">
                             <div class="product__info-add-to-cart">
-                                <a href='/cart' class="product__info-add-to-cart--button"><i class="product__info-add-to-cart--icon fas fa-cart-plus"></i> Thêm vào giỏ hàng</a>
+                                <a href='/cart/{{_id}}' class="product__info-add-to-cart--button"><i class="product__info-add-to-cart--icon fas fa-cart-plus"></i> Thêm vào giỏ hàng</a>
                             </div>
                         </li>
                     </ul>
                 </div>
             </div>
+                    {{/with}}
 
             <div class="row">
                 <div class="col l-10">
