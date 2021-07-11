@@ -1,4 +1,8 @@
 const books = require('../models/book');
+const cloudinary = require('../utils/cloudinary.js');
+// const multer = require('multer');
+// const upload = multer({ dest:'./public/uploads/'});
+
 
 class adminController {
     login(req, res, next) {
@@ -37,12 +41,10 @@ class adminController {
 
     async addBook(req, res, next) { // admin/book-manage : post
         try {
-            console.log(req.file.path);
-            req.body.image = req.file.path.split('\\').slice(1).join('\\');
             // upload image to cloudinary here
-
-            // get public url from cloudinary 
-            //store url to database
+            const cloudinaryImage = await cloudinary.uploader.upload(req.file.path);
+            req.body.image = cloudinaryImage.secure_url;
+            req.body.cloudinary_id = cloudinaryImage.public_id;
             const book = await books.create(req.body);
             return res.status(200).json({
                 status: 'Thành công!',

@@ -1,8 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const adminController = require('../controllers/adminController.js');
-const multer = require('multer');
-const upload = multer({ dest:'./public/uploads/'});
+// const multer = require('multer');
+// const upload = multer({ dest:'./public/uploads/'});
+var upload = require('../utils/multer');
 // var storage = multer.diskStorage({
 //     destination: function (req, file, cb) {
 //         cb(null, __dirname + "/public")

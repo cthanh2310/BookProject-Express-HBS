@@ -35,6 +35,9 @@ const userSchema = new mongoose.Schema({
     avatar: {
         data: Buffer,
         contentType: String
+    },
+    cloudinary_id: {
+        type: String,
     }
 },{
     timestamps: true,

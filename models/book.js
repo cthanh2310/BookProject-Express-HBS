@@ -1,41 +1,42 @@
 const mongoose = require('mongoose');
-var moment = require('moment');
 
 const bookSchema = new mongoose.Schema({
-    name:{
-        type:String,
+    name: {
+        type: String,
         unique: [true, 'Tên sách đã tồn tại!'],
         trim: true,
         require: [true, 'Tên sách là bắt buộc']
     },
-    dateOfSubmit:{
+    dateOfSubmit: {
         type: Date,
-        required: true,
+        required: [true, 'Thời gian bắt buộc nhập! ']
     },
-    price:{
+    price: {
         type: Number,
-        required: true,
+        required: [true,'Vui lòng nhập giá sách!']
     },
-    description:{
+    description: {
         type: String,
-        required: true,
+        required: [true,'Vui lòng nhập mô tả!']
     },
-    category:{
+    category: {
         type: String,
-        required: true,
+        required: [true,'Vui lòng nhập thể loại!']
     },
-    author:{
+    author: {
         type: String,
-        required: true,
+        required: [true,'Vui lòng nhập tên tác giả!']
     },
-    publisher:{
+    publisher: {
         type: String,
-        required: true,
+        required: [true,'Vui lòng nhập nhà xuất bản!']
     },
-    image:{
+    image: {
         type: String,
-        required: true,
-    }
+        required: [true,'Vui lòng thêm hình ảnh cho sách!']
+    }, cloudinary_id: {
+        type: String,
+    },
 })
 
 // bookSchema.pre('save',async function(next){
