@@ -47,7 +47,7 @@ class adminController {
             req.body.cloudinary_id = cloudinaryImage.public_id;
             const book = await books.create(req.body);
             return res.status(200).json({
-                status: 'Thành công!',
+                status: 'Thêm sách thành công!',
                 data: { book }
             })
         } catch (err) {
@@ -56,10 +56,17 @@ class adminController {
     }
     async updateBook(req, res, next) {
         try {
-            const { bookID } = req.params;
-            await books.findByIdAndUpdate(bookID, { ...req.body }, { new: true, runValidators: true });
+            if (req.file) {
+                const cloudinaryImage = await cloudinary.uploader.upload(req.file.path);
+                req.body.image = cloudinaryImage.secure_url;
+                req.body.cloudinary_id = cloudinaryImage.public_id;
+            }
+            const bookID = req.body.id;
+            console.log(req.body);
+            const book = await books.updateOne({_id: bookID}, { ...req.body }, { new: true, runValidators: true });
             res.status(200).json({
-                status: 'Thành công!',
+                status: 'Cập nhật thành công!',
+                data: {book},
             })
         } catch (err) {
             next(err);
