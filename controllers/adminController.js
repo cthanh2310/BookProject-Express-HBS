@@ -1,5 +1,4 @@
 const books = require('../models/book');
-var moment = require('moment');
 
 class adminController {
     login(req, res, next) {
@@ -38,7 +37,12 @@ class adminController {
 
     async addBook(req, res, next) { // admin/book-manage : post
         try {
+            console.log(req.file.path);
             req.body.image = req.file.path.split('\\').slice(1).join('\\');
+            // upload image to cloudinary here
+
+            // get public url from cloudinary 
+            //store url to database
             const book = await books.create(req.body);
             return res.status(200).json({
                 status: 'Thành công!',

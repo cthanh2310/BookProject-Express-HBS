@@ -69,19 +69,25 @@
             for (var pair of formData.entries()) {
                 console.log(pair[0] + ', ' + pair[1]);
             } */
-      /*  var formData = {
-            email: $("#email").val(),
-            password: $("#password").val()
-        } */
+        /*  var formData = {
+              email: $("#email").val(),
+              password: $("#password").val()
+          } */
+        var formData = new FormData(this);
+        var formObject = {};
+        // conver formData to Object
+        formData.forEach((value, key) => formObject[key] = value);
+        console.log(JSON.stringify(formObject));
         $.ajax({
             url: '/auth/register',
             type: 'POST',
-            contentType : "application/json",
-            data : JSON.stringify({
+            contentType: "application/json",
+            /* data: JSON.stringify({
                 email: document.querySelector('#email').value,
                 password: document.querySelector('#password').value,
                 confirmPassword: document.querySelector('#confirmPassword').value,
-            }),
+            }), */
+            data: JSON.stringify(formObject),
             processData: false,
             dataType: 'json',
 
