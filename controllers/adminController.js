@@ -72,7 +72,16 @@ class adminController {
             next(err);
         }
     }
-
+    async deleteBook(req, res, next) {
+        try{
+            var dataId = req.params.id;
+            await books.deleteOne({_id: dataId});
+            console.log(req.params.id + ' is deleted');
+            res.redirect('back');
+        } catch(err){
+            next(err);
+        }
+    }
     billManage(req, res, next) {
         res.render('bill-manage', { layout: 'admin' });
     }

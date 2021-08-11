@@ -3,10 +3,10 @@
 </head>
 <div class="grid wide">
     <div class="row auth-form__row">
-        
+
         <div class="col l-6 auth-form__row--center">
             <div class="auth-form">
-                <form action="/auth/login" method="post"class="auth-form__app__container">
+                <form action="/auth/login" method="post" class="auth-form__app__container">
                     <div class="auth-form__header">
                         <h3 class="auth-form__heading">Đăng nhập</h3>
                         <a href="/auth/register" class="auth-form__switch-btn">Đăng ký</a>
@@ -16,15 +16,16 @@
                             <input type="text" placeholder="Email của bạn" name="email" class="auth-form__input">
                         </div>
                         <div class="auth-form__group">
-                            <input type="password" placeholder="Mật khẩu của bạn" name="password" class="auth-form__input">
+                            <input type="password" placeholder="Mật khẩu của bạn" name="password"
+                                class="auth-form__input">
                         </div>
                     </div>
                     <div class="auth-form__aside">
-                       <div class="auth-form__help">
-                           <a href="" class="auth-form__help-link auth-form__help-link-forgot">Quên mật khẩu</a>
-                           <span class="auth-form__help-separate"></span>
-                           <a href="" class="auth-form__help-link">Cần trợ giúp?</a>
-                       </div>
+                        <div class="auth-form__help">
+                            <a href="" class="auth-form__help-link auth-form__help-link-forgot">Quên mật khẩu</a>
+                            <span class="auth-form__help-separate"></span>
+                            <a href="" class="auth-form__help-link">Cần trợ giúp?</a>
+                        </div>
                     </div>
                     <div class="auth-form__controls">
                         <a href="/" class=" btn--back btn--normal ">TRỞ LẠI</a>
@@ -34,7 +35,8 @@
                 <div class="auth-form__socials">
                     <a href="" class="auth-form__socials--facebook">
                         <i class="fab fa-facebook-square auth-form__socials-icon"></i>
-                        <span class="auth-form__socials-title auth-form__socials-title--span">Kết nối với Facebook</span>
+                        <span class="auth-form__socials-title auth-form__socials-title--span">Kết nối với
+                            Facebook</span>
                     </a>
                     <a href="" class="auth-form__socials--google">
                         <i class="fab fa-google auth-form__socials-icon"></i>
@@ -45,3 +47,28 @@
         </div>
     </div>
 </div>
+
+<script>
+    function setCookie(cname, cvalue, exdays) {
+        const d = new Date();
+        d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+        let expires = "expires=" + d.toUTCString();
+        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+    }
+    function getCookie(cname) {
+        let name = cname + "=";
+        let decodedCookie = decodeURIComponent(document.cookie);
+        let ca = decodedCookie.split(';');
+        for (let i = 0; i < ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return "";
+    }
+    
+</script>
