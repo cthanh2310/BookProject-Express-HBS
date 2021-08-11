@@ -2,9 +2,15 @@ require('dotenv').config({path: './configs/.env'});
 //connect DB 
 const {connectDB} = require('./configs/db.js');
 connectDB();
+
 const path = require('path');
 const express = require('express');
+var methodOverride = require('method-override')
 const app = express();
+app.use(methodOverride('_method'))
+// Cookie
+const cookieParser = require('cookie-parser');
+app.use(cookieParser());
 
 console.log('port env: ' + process.env.app_port)
 const route = require('./routes/index');

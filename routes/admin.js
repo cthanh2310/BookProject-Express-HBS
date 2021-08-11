@@ -43,9 +43,9 @@ router.post('/book-manage',upload.single('myfile'), adminController.addBook);
 
 router.post('/book-manage/store', adminController.bookManage_post);  // Store database to use Ajax
 
-router.post('/book-manage/update', upload.single('myfile'), adminController.updateBook); // Update
+router.put('/book-manage/update', upload.single('myfile'), adminController.updateBook); // Update
 
-
+router.delete('/book-manage/delete/:id', adminController.deleteBook);
 
 router.get('/bill-manage', adminController.billManage);
 

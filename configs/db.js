@@ -11,8 +11,8 @@ async function connectDB(){
         });
         console.log('Connect successfully!')
     } catch(error){
-        console.log('connect failed!!')
-        process.exit(1);
+        console.log('connect failed!! with error: ' + error);
+        // process.exit(1);
     }
 }
 module.exports = {connectDB}
