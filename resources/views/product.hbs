@@ -7,7 +7,7 @@
             <div class="category">
                 <div class="title">
                     <hr class="title-line">
-                    <h3 class="category__title">Thể loại</h3> 
+                    <h3 class="category__title">Thể loại</h3>
                     <hr class="title-line">
                 </div>
                 <ul class="category__list">
@@ -18,7 +18,7 @@
                     </li>
                     <li class="category__item">
                         <a href="" class="category__link">
-                        Đời sống
+                            Đời sống
                         </a>
                     </li>
                     <li class="category__item">
@@ -44,8 +44,8 @@
                 </ul>
             </div>
         </div>
-        
-                   {{#with book}}
+
+        {{#with book}}
         <div class="col l-9">
             <div class="row xsm-gutter">
                 <div class="col l-4 product__image">
@@ -85,13 +85,18 @@
                         </li>
                         <li class="product__info-item">
                             <div class="product__info-add-to-cart">
-                                <a href='/cart' class="product__info-add-to-cart--button"><i class="product__info-add-to-cart--icon fas fa-cart-plus"></i> Thêm vào giỏ hàng</a>
+                                <a id="add-to-cart" class="product__info-add-to-cart--button"><i
+                                        class="product__info-add-to-cart--icon fas fa-cart-plus"></i> Thêm vào giỏ
+                                    hàng</a>
                             </div>
                         </li>
                     </ul>
                 </div>
             </div>
-                    {{/with}}
+
+            <form action="/product/{{_id}}" method="POST" id="form-submit"></form>
+
+            {{/with}}
 
             <div class="row">
                 <div class="col l-10">
@@ -99,56 +104,70 @@
                         <h2>Review sách</h2>
                     </div>
                     <form class="review__my-comment">
-                        <textarea placeholder="Thêm bình luận..."role="textbox" contenteditable class="review__textarea" id="review__textarea" cols="30" rows="10"></textarea>
+                        <textarea placeholder="Thêm bình luận..." role="textbox" contenteditable
+                            class="review__textarea" id="review__textarea" cols="30" rows="10"></textarea>
                         <button class="review__my-comment--btn">Bình luận</button>
                     </form>
                     <div class="review__comment row no-gutters">
                         <div class="col l-1">
-                                <div class="review__avatar">
-                                    <img src="/images/linh.jpg" alt="">
-                                </div>
+                            <div class="review__avatar">
+                                <img src="/images/linh.jpg" alt="">
+                            </div>
                         </div>
                         <div class="col l-11">
                             <div class="review__content">
                                 <span class="content__user-name">Thùy Linh</span>
-                                <div class="content__details"><p>Giá rẻ phù hợp sinh viên</p></div>
+                                <div class="content__details">
+                                    <p>Giá rẻ phù hợp sinh viên</p>
+                                </div>
                                 <div class="content__react">
-                                    <span class="content__react-like"><i class="fas fa-thumbs-up"></i> <span class="content__react-amount">13</span></span>
-                                    <span class="content__react-dislike"><i class="fas fa-thumbs-down"></i> <span class="content__react-amount">1</span></span>
+                                    <span class="content__react-like"><i class="fas fa-thumbs-up"></i> <span
+                                            class="content__react-amount">13</span></span>
+                                    <span class="content__react-dislike"><i class="fas fa-thumbs-down"></i> <span
+                                            class="content__react-amount">1</span></span>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="review__comment row no-gutters">
                         <div class="col l-1">
-                                <div class="review__avatar">
-                                    <img src="/images/mai-am-nhac.jpg" alt="">
-                                </div>
+                            <div class="review__avatar">
+                                <img src="/images/mai-am-nhac.jpg" alt="">
+                            </div>
                         </div>
                         <div class="col l-11">
                             <div class="review__content">
                                 <span class="content__user-name">Mai</span>
-                                <div class="content__details"><p>Nội dung mới mẻ, khá thú vị</p></div>
+                                <div class="content__details">
+                                    <p>Nội dung mới mẻ, khá thú vị</p>
+                                </div>
                                 <div class="content__react">
-                                    <span class="content__react-like"><i class="fas fa-thumbs-up"></i> <span class="content__react-amount">18</span></span>
-                                    <span class="content__react-dislike"><i class="fas fa-thumbs-down"></i> <span class="content__react-amount"></span></span>
+                                    <span class="content__react-like"><i class="fas fa-thumbs-up"></i> <span
+                                            class="content__react-amount">18</span></span>
+                                    <span class="content__react-dislike"><i class="fas fa-thumbs-down"></i> <span
+                                            class="content__react-amount"></span></span>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="review__comment row no-gutters">
                         <div class="col l-1">
-                                <div class="review__avatar">
-                                    <img src="/images/avatar.jpg" alt="">
-                                </div>
+                            <div class="review__avatar">
+                                <img src="/images/avatar.jpg" alt="">
+                            </div>
                         </div>
                         <div class="col l-11">
                             <div class="review__content">
                                 <span class="content__user-name">Thành phạm</span>
-                                <div class="content__details"><p>Cuốn sách này rất thú vị và tôi phải mua thêm vài cuốn sách thể loại đời sống nữa</p></div>
+                                <div class="content__details">
+                                    <p>Cuốn sách này rất thú vị và tôi phải mua thêm vài cuốn sách thể loại đời sống nữa
+                                    </p>
+                                </div>
                                 <div class="content__react">
-                                    <span class="content__react-like"><i class="fas fa-thumbs-up"></i> <span class="content__react-amount">10</span></span>
-                                    <span class="content__react-dislike"><i class="fas fa-thumbs-down"></i> <span class="content__react-amount">2</span></span>
+                                    <span class="content__react-like"><i class="fas fa-thumbs-up"></i> <span
+                                            class="content__react-amount">10</span></span>
+                                    <span class="content__react-dislike"><i class="fas fa-thumbs-down"></i> <span
+                                            class="content__react-amount">2</span></span>
                                 </div>
                             </div>
                         </div>
@@ -158,4 +177,104 @@
         </div>
     </div>
 </div>
-<script src="/javascripts/product.js"></script>
+
+<div class="overlay">
+    <div class="popup">
+        <h3 class="popup__tile">Thêm giỏ hàng thành công <i class="fas fa-check"></i></h3>
+        <p class="popup__description">Di chuyển đến giỏ hàng của bạn?</p>
+        <div class="pop__up-button">
+            <a class="pop__up-button-exit">Thoát</a>
+            <a href="/cart" class="pop__up-button-ok">Đồng ý</a>
+        </div>
+    </div>
+
+
+
+    <script src="/javascripts/product.js"></script>
+    <script>
+        const amoutSpan = document.getElementById("product__info-amount");
+        let amount = parseInt(amoutSpan.innerHTML)
+        document.getElementById("product__info-amount-sub").addEventListener('click', function (e) {
+            if (amount > 1) {
+                amount--;
+                amoutSpan.innerHTML = amount;
+            }
+        })
+        document.getElementById("product__info-amount-sum").addEventListener('click', function (e) {
+            amount++;
+            amoutSpan.innerHTML = amount;
+        })
+
+        function setCookie(cname, cvalue, exdays) {
+            const d = new Date();
+            d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+            let expires = "expires=" + d.toUTCString();
+            document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+        }
+        function getCookie(name) {
+            var nameEQ = name + "=";
+            var ca = document.cookie.split(';');
+            for (var i = 0; i < ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+                if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+            }
+            return null;
+        }
+
+
+
+        const addToCartBtn = document.getElementById('add-to-cart');
+        addToCartBtn.addEventListener('click', function (e) {
+            if (!getCookie('token')) {
+                event.preventDefault();
+                alert('Cần đăng nhập để thêm giỏ hàng!');
+            } else {
+                var currentUrl = window.location.href;
+                var bookId = currentUrl.split('/')[4];
+                /* var amountString = amount.toString();
+                var productInfo = [];
+                productInfo.push(bookId + ':' + amountString);
+                setCookie(bookId, productInfo, 999);
+                console.log(productInfo);  */
+                /* var formSubmit = document.getElementById('form-submit');
+                var formData = new FormData(formSubmit);
+                var currentUrl = window.location.href;
+                var bookId = currentUrl.split('/')[4];
+                formData.append('bookId', bookId);
+                formData.append('amount', amount);
+                formData.append('token', getCookie("token"));
+                for (var pair of formData.entries()) {
+                    console.log(pair[0] + ', ' + pair[1]);
+                }
+                formSubmit.submit(); */
+
+                axios.post(`/product/${bookId}`, {
+                    bookId,
+                    quantity: amount,
+                })
+                    .then(function (response) {
+                        console.log(response);
+                        var overlay = document.querySelector('.overlay');
+                        var popup = document.querySelector('.popup');
+                        popup.style.display = 'block';
+                        overlay.style.display = 'block';
+                        var exitButton = document.querySelector('.pop__up-button-exit');
+                        exitButton.onclick = function () {
+                            var overlay = document.querySelector('.overlay');
+                            var popup = document.querySelector('.popup');
+                            popup.style.display = 'none';
+                            overlay.style.display = 'none';
+                        }
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    })
+            }
+        })
+
+
+
+
+
+    </script>

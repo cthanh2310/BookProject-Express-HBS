@@ -115,7 +115,6 @@
         var expires = "expires=" + d.toUTCString();
         document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
     }
-    console.log(2);
     const logOut = document.getElementById('log-out');
     logOut.addEventListener('click', function () {
         setCookie('token', '', 0)

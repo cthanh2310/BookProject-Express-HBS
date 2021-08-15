@@ -21,7 +21,7 @@ var totalPay = 0;
             var totalPay = 0;
             var currentAmount = element.querySelector('#product__bill-amount').innerHTML;
             currentAmount = parseInt(currentAmount);
-            if (currentAmount >= 1) {
+            if (currentAmount > 1) {
                 currentAmount--;
                 element.querySelector('#product__bill-amount').innerHTML = currentAmount;
                 var fee = element.querySelector('.product__bill-fee').innerHTML;

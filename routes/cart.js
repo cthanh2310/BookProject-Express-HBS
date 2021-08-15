@@ -5,5 +5,6 @@ const cartController = require('../controllers/cartController.js');
 const {authMiddleware} = require('../middlewares/authMiddleware.js');
 
 router.get('/',authMiddleware, cartController.cart);
-
+router.delete('/:id', authMiddleware, cartController.deleteProduct);
+// router.post('/',authMiddleware, cartController.cart_post);
 module.exports = router;

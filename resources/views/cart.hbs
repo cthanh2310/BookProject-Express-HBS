@@ -2,123 +2,154 @@
     <link rel="stylesheet" href="/css/cart.css">
 </head>
 <div class="grid wide">
-        <div class="row cart">
-            <div class="col l-6">
-                <div class="cart__product">
-                    <h3 class="cart__product-h3">Sản phẩm</h3>
-                </div>
-            </div>
-            <div class="col l-6">
-                <div class="row">
-                    <div class="col l-4">
-                        <div class="cart__details">
-                            <h3 class="cart__details-h3">Đơn giá</h3>
-                        </div>
-                    </div>
-                    <div class="col l-4">
-                        <div class="cart__details">
-                            <h3 class="cart__details-h3">Số lượng</h3>
-                        </div>
-                    </div>
-                    <div class="col l-4">
-                        <div class="cart__details">
-                            <h3 class="cart__details-h3">Thành tiền</h3>
-                        </div>
-                    </div>
-                </div>
-               
+    <div class="row cart">
+        <div class="col l-6">
+            <div class="cart__product">
+                <h3 class="cart__product-h3">Sản phẩm</h3>
             </div>
         </div>
-        <div class="row product">
-            <div class="col l-6">
-                <div class="product__info">
-                    <img src="/images/no-cart.png" alt="" class="product__info-img">
-                    <h3 class="product__info-name">Đắc nhân tâm</h3>
+        <div class="col l-6">
+            <div class="row">
+                <div class="col l-4">
+                    <div class="cart__details">
+                        <h3 class="cart__details-h3">Đơn giá</h3>
+                    </div>
+                </div>
+                <div class="col l-4">
+                    <div class="cart__details">
+                        <h3 class="cart__details-h3">Số lượng</h3>
+                    </div>
+                </div>
+                <div class="col l-4">
+                    <div class="cart__details">
+                        <h3 class="cart__details-h3">Thành tiền</h3>
+                    </div>
                 </div>
             </div>
-            <div class="col l-6">
-                <div class="row">
-                    <div class="col l-4 product__bill">
-                        <h3 class="product__bill-fee">10.000đ</h3>
-                    </div>
-                    <div class="col l-4 product__bill--modifier">
-                        <div class="product__bill-amount">
-                            <button id="product__bill-amount-sub" class="product__bill-amount-math">
-                                <i class="product__bill-amount-icon fas fa-minus"></i>
-                            </button>
-                            <span id="product__bill-amount" class="product__bill-amount-span">1</span>
-                            <button id="product__bill-amount-sum" class="product__bill-amount-math">
-                                <i class="product__bill-amount-icon fas fa-plus"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="col l-4 product__bill">
-                        <h3 class="product__bill-fee-total">10.000đ</h3>
-                    </div>
-                </div>
+
+        </div>
+    </div>
+    {{#each listBookInCart}}
+    <div class="row product">
+        <div class="col l-6">
+            <div class="product__info">
+                <img src="{{this.bookId.image}}" alt="" class="product__info-img">
+                <h3 class="product__info-name">{{this.bookId.name}}</h3>
             </div>
         </div>
-        <div class="row product">
-            <div class="col l-6">
-                <div class="product__info">
-                    <img src="/images/no-cart.png" alt="" class="product__info-img">
-                    <h3 class="product__info-name">Đắc nhân tâm</h3>
+        <div class="col l-6">
+            <div class="row">
+                <div class="col l-4 product__bill">
+                    <h3 class="product__bill-fee">{{convertToVND this.bookId.price}}</h3>
                 </div>
-            </div>
-            <div class="col l-6">
-                <div class="row">
-                    <div class="col l-4 product__bill">
-                        <h3 class="product__bill-fee">10.000đ</h3>
+                <div class="col l-4 product__bill--modifier">
+                    <div class="product__bill-amount">
+                        <button id="product__bill-amount-sub" class="product__bill-amount-math">
+                            <i class="product__bill-amount-icon fas fa-minus"></i>
+                        </button>
+                        <span id="product__bill-amount" class="product__bill-amount-span">{{this.quantity}}</span>
+                        <button id="product__bill-amount-sum" class="product__bill-amount-math">
+                            <i class="product__bill-amount-icon fas fa-plus"></i>
+                        </button>
                     </div>
-                    <div class="col l-4 product__bill--modifier">
-                        <div class="product__bill-amount">
-                            <button id="product__bill-amount-sub" class="product__bill-amount-math">
-                                <i class="product__bill-amount-icon fas fa-minus"></i>
-                            </button>
-                            <span id="product__bill-amount" class="product__bill-amount-span">1</span>
-                            <button id="product__bill-amount-sum" class="product__bill-amount-math">
-                                <i class="product__bill-amount-icon fas fa-plus"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="col l-4 product__bill">
-                        <h3 class="product__bill-fee-total">10.000đ</h3>
-                    </div>
+                </div>
+                <div class="col l-4 product__bill">
+                    <h3 class="product__bill-fee-total">{{multiplication this.bookId.price this.quantity}}</h3>
+                    <div class="product__bill-cancel"> <i dataId="{{this._id}}"
+                            class="product__bill-amount-icon-cancel btn-icon-remove fas fa-times"></i></div>
                 </div>
             </div>
         </div>
-        <div class="row pay pay__ship">
-            <div class="col l-12 ">
-                <div class="">
-                    <h3 class="pay__ship-fee">Phí vận chuyển: </h3>
-                </div>
+    </div>
+    {{/each}}
+    {{#if listBookInCart}}
+    <div class="row pay pay__ship">
+        <div class="col l-12 ">
+            <div class="">
+                <h3 class="pay__ship-fee">Phí vận chuyển: </h3>
             </div>
-            <div class="col l-12">
-                    <h3 class="pay__ship-total-text">Tổng thanh toán:</h3>
-                    <h3 class="pay__ship-total-h3"></h3>
+        </div>
+        <div class="col l-12">
+            <h3 class="pay__ship-total-text">Tổng thanh toán:</h3>
+            <h3 class="pay__ship-total-h3"></h3>
+        </div>
+
+    </div>
+    {{/if}}
+    {{#unless listBookInCart}}
+    <div class="empty__cart">
+        <h2 class="empty__cart-content">Giỏ hàng trống!</h2>
+        <img class="empty__cart-image" src="/images/no-product-real.png" alt="">
+    </div>
+    {{/unless}}
+    {{#if listBookInCart}}
+    <div class="row personal__info">
+        <form action="/my-order" class="personal__info-form">
+            <div class="personal__info-name">
+                <label for="" class="personal__info-name-label">Tên khách hàng</label>
+                <input type="text" class="personal__info-name-input">
             </div>
-            
-        </div>
-        <div class="row personal__info">
-            <form action="/my-order" class="personal__info-form">
-                <div class="personal__info-name">
-                    <label for="" class="personal__info-name-label">Tên khách hàng</label>
-                    <input type="text" class="personal__info-name-input">
-                </div>
-                <div class="personal__info-address">
-                    <label for="" class="personal__info-address-label">Địa chỉ nhận hàng</label>
-                    <input type="text" class="personal__info-address-input">
-                </div>
-                <div class="personal__info-phone-number">
-                    <label for="" class="personal__info-phone-number-label">Số điện thoại</label>
-                    <input type="text" class="personal__info-phone-number-input">
-                </div>
-                <div class="personal__info-payment">
-                    <button class="personal__info-payment-button">Thanh toán</button>
-                        <a href="/" class="personal__info-payment-button personal__info-payment-button--modifier">Tiếp tục mua sắm</a>
-                </div>
-            </form>
-        </div>
+            <div class="personal__info-address">
+                <label for="" class="personal__info-address-label">Địa chỉ nhận hàng</label>
+                <input type="text" class="personal__info-address-input">
+            </div>
+            <div class="personal__info-phone-number">
+                <label for="" class="personal__info-phone-number-label">Số điện thoại</label>
+                <input type="text" class="personal__info-phone-number-input">
+            </div>
+            <div class="personal__info-payment">
+                <button class="personal__info-payment-button">Thanh toán</button>
+                <a href="/" class="personal__info-payment-button personal__info-payment-button--modifier">Tiếp tục mua
+                    sắm</a>
+            </div>
+        </form>
+    </div>
+    {{/if}}
+
+
 </div>
 
-<script src="javascripts/cart.js"></script>
+<div class="overlay">
+    <div class="popup">
+        <h3 class="popup__tile">Bạn chắc chắn?</h3>
+        <p class="popup__description">Xóa khỏi giỏ hàng?</p>
+        <form action="/admin/book-manage" class="pop__up-button">
+            <a class="pop__up-button-exit">Thoát</a>
+            <button class="pop__up-button-ok">Đồng ý</button>
+        </form>
+    </div>
+    <form name="form-delete" method="post"></form>
+
+    <script src="javascripts/cart.js"></script>
+    <script>
+
+        var exitButton = document.querySelector('.pop__up-button-exit');
+        exitButton.onclick = function () {
+            var overlay = document.querySelector('.overlay');
+            var popup = document.querySelector('.popup');
+            popup.style.display = 'none';
+            overlay.style.display = 'none';
+        }
+        var orderCancelList = document.querySelectorAll('.btn-icon-remove');
+        orderCancelList.forEach(orderCancel => {
+            orderCancel.onclick = function () {
+                var overlay = document.querySelector('.overlay');
+                var popup = document.querySelector('.popup');
+                popup.style.display = 'block';
+                overlay.style.display = 'block';
+                var dataId = orderCancel.getAttribute('dataId');
+                console.log(dataId)
+                console.log(popup.lastElementChild.lastElementChild)
+                popup.lastElementChild.lastElementChild.addEventListener('click', function () { // get button element
+                    event.preventDefault();
+                    console.log('ok');
+                    var deleteForm = document.forms['form-delete']; // get form element by name
+                    deleteForm.action = '/cart/' + dataId + '?_method=DELETE';
+                    console.log(deleteForm);
+                    deleteForm.submit();
+                })
+            }
+        })
+
+
+    </script>

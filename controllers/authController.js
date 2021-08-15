@@ -7,7 +7,6 @@ class authController {
         const token = req.cookies['token'];
         if(token){
             const userId = jwt.verify(token, process.env.SECRET_KEY);
-            console.log(userId);
             res.redirect('/');
         } else {
             res.render('login', { layout: 'auth' });
