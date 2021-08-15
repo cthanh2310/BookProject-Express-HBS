@@ -30,7 +30,12 @@
   margin-left: 10px;
   font-weight: 600; }
 
-.product__bill-fee, .product__bill-fee-total {
+.product__bill {
+  display: flex;
+  justify-content: space-between; }
+
+.product__bill-fee,
+.product__bill-fee-total {
   font-weight: 400;
   font-size: 1.4rem; }
 
@@ -56,6 +61,14 @@
 .product__bill-amount-icon {
   color: var(--text-color);
   font-size: 1.4rem; }
+
+.product__bill-amount-icon-cancel {
+  cursor: pointer;
+  font-size: 1.8rem;
+  padding-top: 6px; }
+
+.product__bill-amount-icon-cancel:hover {
+  color: var(--red-color); }
 
 .pay__ship {
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3); }
@@ -83,16 +96,22 @@
   margin: 20px;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2); }
 
-.personal__info-name, .personal__info-address, .personal__info-phone-number,
+.personal__info-name,
+.personal__info-address,
+.personal__info-phone-number,
 .personal__info-payment {
   margin: 10px; }
 
-.personal__info-name-label, .personal__info-address-label, .personal__info-phone-number-label {
+.personal__info-name-label,
+.personal__info-address-label,
+.personal__info-phone-number-label {
   font-size: 1.5rem;
   color: var(--text-color);
   font-weight: 600; }
 
-.personal__info-name-input, .personal__info-address-input, .personal__info-phone-number-input {
+.personal__info-name-input,
+.personal__info-address-input,
+.personal__info-phone-number-input {
   border: 1px solid var(--orange-color);
   margin-top: 6px;
   border-radius: 3px;
@@ -100,7 +119,9 @@
   min-width: 94%;
   height: 22px; }
 
-.personal__info-name-input:hover, .personal__info-address-input:hover, .personal__info-phone-number-input:hover {
+.personal__info-name-input:hover,
+.personal__info-address-input:hover,
+.personal__info-phone-number-input:hover {
   border-color: var(--primary-color); }
 
 .personal__info-payment {
@@ -129,3 +150,88 @@
   align-items: center;
   padding-right: 5px;
   padding-left: 5px; }
+
+.empty__cart {
+  text-align: center;
+  padding-bottom: 14px; }
+
+.empty__cart-content {
+  text-align: center; }
+
+.empty__cart-image {
+  width: 100%;
+  height: 190px;
+  object-fit: contain; }
+
+.overlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+  z-index: 68;
+  animation: fadeIn 0.2s linear;
+  display: none; }
+
+.overlay:active .popup {
+  border: 1px solid #000; }
+
+@keyframes show {
+  from {
+    opacity: 0; }
+  to {
+    opacity: 1; } }
+
+.popup {
+  z-index: 69;
+  width: 300px;
+  position: fixed;
+  top: 25%;
+  right: 50%;
+  transform: translateX(50%);
+  background-color: white;
+  border-radius: 5px;
+  animation: show 0.2s linear;
+  display: none; }
+
+.popup__tile {
+  text-align: center;
+  font-size: 1.7rem; }
+
+.popup__description {
+  font-size: 1.5rem;
+  text-align: center; }
+
+.pop__up-button {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px; }
+
+.pop__up-button-exit {
+  background-color: #fff;
+  color: #106FFF;
+  border: none;
+  font-size: 1.4rem;
+  cursor: pointer;
+  margin: auto 10px; }
+
+.pop__up-button-exit:hover {
+  font-weight: 600; }
+
+.pop__up-button-ok {
+  background-color: #ffb18e;
+  justify-content: center;
+  border: none;
+  border-radius: 3px;
+  width: 100px;
+  height: 30px;
+  color: var(--black-color);
+  font-size: 1.4rem;
+  transition: all linear 0.3s;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.3); }
+
+.pop__up-button-ok:hover {
+  background-color: var(--red-color);
+  color: #ffffee;
+  cursor: pointer; }

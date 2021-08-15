@@ -128,16 +128,16 @@
         </div>
     </div>
 </div>
-<div class="overlay">
+<div class="overlay"> 
     <div class="popup">
         <h3 class="popup__tile">Bạn chắc chắn?</h3>
-        <p class="popup__description">Bạn có thật sự muốn xóa cuốn sách này?</p>
+        <p class="popup__description">Bạn muốn xóa cuốn sách này?</p>
         <form action="/admin/book-manage" class="pop__up-button">
             <a class="pop__up-button-exit">Thoát</a>
             <button class="pop__up-button-ok">Đồng ý</button>
         </form>
     </div>
-<form name="form-delete" method="post"></form>
+    <form name="form-delete" method="post"></form>
     <script>
         //// Resize textarea
         var observe;
@@ -300,9 +300,6 @@
             formData.append("publisher", publisher);
             for (var i = 0; i < myfile.length; i++) {
                 formData.append("myfile", myfile[i]);
-            }
-            for (var pair of formData.entries()) {
-                console.log(pair[0] + ', ' + pair[1]);
             }
             var contenttype = {
                 headers: {

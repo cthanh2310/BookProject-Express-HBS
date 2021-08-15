@@ -28,7 +28,16 @@ app.engine(
     'hbs',
     handlebars({
         extname: '.hbs',
+        helpers: {
+            multiplication: function(a, b) {
+                return (a * b).toLocaleString('vi', {style : 'currency', currency : 'VND'});;
+            },
+            convertToVND: function(a){
+                return a.toLocaleString('vi', {style : 'currency', currency : 'VND'});;
+            }
+        }
     }),
+    
 );
 app.set('view engine', 'hbs'); // Set view engine = handlebars
 app.set('views', path.join(__dirname, 'resources', 'views'));
