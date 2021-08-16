@@ -1,6 +1,6 @@
 const users = require('../models/user');
 const jwt = require('jsonwebtoken');
-
+const orders = require('../models/order');
 
 class orderController {
     async order(req, res, next) {
@@ -14,8 +14,11 @@ class orderController {
                 .catch((err) => {
                     return next(err);
                 })
-            res.render('order', { user });
-            await console.log(user);
+
+
+
+            const listOrder = await orders.find({customerAccount: userId}).populate('listProduct.productId', ['name', 'price', 'image']).lean();
+            res.render('order', { user, listOrder });
         }
         else {
             res.render('order');

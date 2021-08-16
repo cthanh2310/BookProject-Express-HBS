@@ -1,5 +1,6 @@
 const books = require('../models/book');
 const cloudinary = require('../utils/cloudinary.js');
+const orders = require('../models/order');
 // const multer = require('multer');
 // const upload = multer({ dest:'./public/uploads/'});
 
@@ -62,7 +63,6 @@ class adminController {
                 req.body.cloudinary_id = cloudinaryImage.public_id;
             }
             const bookID = req.body.id;
-            console.log(req.body);
             const book = await books.updateOne({_id: bookID}, { ...req.body }, { new: true, runValidators: true });
             res.status(200).json({
                 status: 'Cập nhật thành công!',
@@ -82,8 +82,10 @@ class adminController {
             next(err);
         }
     }
-    billManage(req, res, next) {
-        res.render('bill-manage', { layout: 'admin' });
+    async billManage(req, res, next) {
+        const listOrder = await orders.find({});
+        console.log(listOrder);
+        res.render('bill-manage', { layout: 'admin', listOrder });
     }
 
     profile(req, res, next) {

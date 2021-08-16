@@ -55,7 +55,7 @@
                 </div>
                 <div class="col l-4 product__bill">
                     <h3 class="product__bill-fee-total">{{multiplication this.bookId.price this.quantity}}</h3>
-                    <div class="product__bill-cancel"> <i dataId="{{this._id}}"
+                    <div class="product__bill-cancel"> <i dataId="{{this._id}}" bookId="{{this.bookId._id}}"
                             class="product__bill-amount-icon-cancel btn-icon-remove fas fa-times"></i></div>
                 </div>
             </div>
@@ -63,6 +63,7 @@
     </div>
     {{/each}}
     {{#if listBookInCart}}
+    <input type="hidden" id="listBookData" value="{{this}}">
     <div class="row pay pay__ship">
         <div class="col l-12 ">
             <div class="">
@@ -76,6 +77,9 @@
 
     </div>
     {{/if}}
+    {{#if cartId}}
+    <input type="hidden" id="cart-id" name="cart-id" value="{{this.cartId}}">
+    {{/if}}
     {{#unless listBookInCart}}
     <div class="empty__cart">
         <h2 class="empty__cart-content">Giỏ hàng trống!</h2>
@@ -84,7 +88,7 @@
     {{/unless}}
     {{#if listBookInCart}}
     <div class="row personal__info">
-        <form action="/my-order" class="personal__info-form">
+        <div class="personal__info-form">
             <div class="personal__info-name">
                 <label for="" class="personal__info-name-label">Tên khách hàng</label>
                 <input type="text" class="personal__info-name-input">
@@ -102,7 +106,7 @@
                 <a href="/" class="personal__info-payment-button personal__info-payment-button--modifier">Tiếp tục mua
                     sắm</a>
             </div>
-        </form>
+        </div>
     </div>
     {{/if}}
 
@@ -150,6 +154,35 @@
                 })
             }
         })
+
+        // payment
+        var paymentButton = document.querySelector('.personal__info-payment-button');
+        var listBook = [];
+        paymentButton.onclick = () => {
+            console.log('Da thanh toan!');
+            var cartId = document.querySelector('#cart-id').value;
+            var customerName = document.querySelector('.personal__info-name-input').value;
+            var customerAddress = document.querySelector('.personal__info-address-input').value;
+            var customerPhone = document.querySelector('.personal__info-phone-number-input').value;
+            var totalPrice = document.querySelector('.pay__ship-total-h3').innerHTML;
+            totalPrice = parseInt(totalPrice.replaceAll('.', ''));
+            var listProduct = document.querySelectorAll('.product');
+            listProduct.forEach((product) => {
+                var bookId = product.querySelector('.product__bill-amount-icon-cancel').getAttribute('bookId');
+                console.log(bookId);
+                var quantity = parseInt(product.querySelector('#product__bill-amount').innerHTML);
+                listBook.push({ productId: bookId, quantity: quantity, });
+            })
+            axios.post('/cart', { cartId, customerName, customerAddress, customerPhone, totalPrice, listBook })
+                .then(response => {
+                    console.log(response.data.data);
+                    window.location.href = "/my-order";
+                })
+                .catch(error => {
+                    console.log(error);
+                })
+        }
+
 
 
     </script>
