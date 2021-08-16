@@ -315,34 +315,6 @@
                     console.log(error);
                 })
         })
-
-        // ajax show message!
-        /*
-        const form = document.getElementById("edit-form")
-        form.addEventListener("submit", function (event) {
-            var formData = new FormData(this);
-            var file = $('#load-image').prop('files')[0];
-            formData.append('image', file)
-            $.ajax({
-                url: '/admin/book-manage',
-                type: 'POST',
-                data: formData,
-                cache: false,
-                dataType: 'json',
-                contentType: false,
-                processData: false,
-                method: 'POST',
-            }).done(function (data) {
-                // If successful
-                console.log(data);
-            }).fail(function (jqXHR, textStatus, errorThrown) {
-                // If fail
-                console.log(textStatus + ': ' + errorThrown);
-            });
-            event.preventDefault();
-
-        });
-        */
         window.onload = init();
         window.onload = modal();
     </script>

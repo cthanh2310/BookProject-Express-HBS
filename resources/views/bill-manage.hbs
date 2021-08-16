@@ -23,10 +23,11 @@
                 </tr>
             </thead>
             <tbody>
+                {{#each listOrder}}
                 <tr>
-                    <td>Phạm Công Thành</td>
-                    <td>86 Nguyễn Công Trứ, Phúc La, Hà Đông, Hà Nội</td>
-                    <td>0986249793</td>
+                    <td>{{this.customerName}}</td>
+                    <td>{{this.customerAddress}}</td>
+                    <td>{{this.customerPhone}}</td>
                     <td class="td__img-modifier">
                         <img src="/images/doi-ngan-dung-ngu-dai.jpg" alt="">
                         <ul>
@@ -35,7 +36,7 @@
                             <li>Giá: 23.000đ</li>
                         </ul>
                     </td>
-                    <td>69.000đ</td>
+                    <td>{{this.totalPrice}}</td>
                     <td>
                         <div class="status__info">
                             <select name="status" id="">
@@ -43,32 +44,11 @@
                                 <option value="">Đang giao hàng</option>
                                 <option value="">Đã giao hàng</option>
                             </select>
-                        <div>
+                            <div>
                     </td>
                 </tr>
-                <tr>
-                    <td>Phạm Công Thành</td>
-                    <td>86 Nguyễn Công Trứ, Phúc La, Hà Đông, Hà Nội</td>
-                    <td>0986249793</td>
-                    <td class="td__img-modifier">
-                        <img src="/images/doi-ngan-dung-ngu-dai.jpg" alt="">
-                        <ul>
-                            <li>Đời ngắn đừng ngủ dài</li>
-                            <li>Số lượng: 3</li>
-                            <li>Giá: 23.000đ</li>
-                        </ul>
-                    </td>
-                    <td>69.000đ</td>
-                    <td>
-                        <div class="status__info">
-                            <select name="status" id="">
-                                <option value="">Đang chờ xử lí</option>
-                                <option value="">Đang giao hàng</option>
-                                <option value="">Đã giao hàng</option>
-                            </select>
-                        <div>
-                    </td>
-                </tr>
+                {{/each}}
+
             </tbody>
         </table>
     </div>

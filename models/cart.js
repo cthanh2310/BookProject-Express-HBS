@@ -13,10 +13,10 @@ const cartSchema = new mongoose.Schema({
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'users',
-        required: [true, 'Cần có user!']
-    }
-})
+        required: [true, 'Cần có user!'],
+    },
+} ,{timestamps : true})
 
-const cart = mongoose.model('cart', cartSchema);
+const carts = mongoose.model('carts', cartSchema);
 
-module.exports = cart;
+module.exports = carts;

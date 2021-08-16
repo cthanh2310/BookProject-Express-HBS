@@ -18,11 +18,12 @@
         <h5 class="order__status-h5">Đang giao hàng</h5>
         <h5 class="order__status-h5">Đã giao hàng</h5>
     </div>
+    {{#each listOrder}}
     <div class="order__have-products">
         <div class="row order__date">
             <ul class="oder__date-list">
-                <li class="order__date-item order__date-item--date">Date: 23/10/2000</li>
-                <li class="order__date-item order__date-item--Total">Total: 20.000đ</li>
+                <li class="order__date-item order__date-item--date">Date: {{this.createdAt}}</li>
+                <li class="order__date-item order__date-item--Total">Total: {{convertToVND this.totalPrice}}</li>
             </ul>
         </div>
         <div class="row order__info">
@@ -53,63 +54,45 @@
             </div>
         </div>
         <div class="list__product">
+            {{#each this.listProduct}}
             <div class="row order__product">
                 <div class="col l-6">
                     <div class="order__product-info">
-                        <img src="/images/no-cart.png" alt="" class="order__product-info-img">
-                        <h3 class="order__product-info-name">Đắc nhân tâm</h3>
+                        <img src="{{this.productId.image}}" alt="" class="order__product-info-img">
+                        <h3 class="order__product-info-name">{{this.productId.name}}</h3>
                     </div>
                 </div>
                 <div class="col l-6">
                     <div class="row">
                         <div class="col l-4 order__product-bill">
-                            <h3 class="order__product-bill-fee">10.000đ</h3>
+                            <h3 class="order__product-bill-fee">{{convertToVND this.productId.price}}</h3>
                         </div>
                         <div class="col l-4 order__product-bill--modifier">
                             <div class="order__product-bill-amount">
-                                <span id="order__product-bill-amount" class="order__product-bill-amount-span">1</span>
+                                <span id="order__product-bill-amount" class="order__product-bill-amount-span">{{this.quantity}}</span>
                             </div>
                         </div>
                         <div class="col l-4 order__product-bill">
-                            <h3 class="order__product-bill-fee-total">10.000đ</h3>
+                            <h3 class="order__product-bill-fee-total">{{multiplication this.productId.price this.quantity}}</h3>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="row order__product">
-                <div class="col l-6">
-                    <div class="order__product-info">
-                        <img src="/images/no-cart.png" alt="" class="order__product-info-img">
-                        <h3 class="order__product-info-name">Đắc nhân tâm</h3>
-                    </div>
-                </div>
-                <div class="col l-6">
-                    <div class="row">
-                        <div class="col l-4 order__product-bill">
-                            <h3 class="order__product-bill-fee">10.000đ</h3>
-                        </div>
-                        <div class="col l-4 order__product-bill--modifier">
-                            <div class="order__product-bill-amount">
-                                <span id="order__product-bill-amount" class="order__product-bill-amount-span">1</span>
-                            </div>
-                        </div>
-                        <div class="col l-4 order__product-bill">
-                            <h3 class="order__product-bill-fee-total">10.000đ</h3>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            {{/each}}
         </div>
         <div class="order__cancel">
-            <button class="order__cancel-button">Hủy đơn hàng</button>
+            <button orderId="{{this._id}}" class="order__cancel-button">Hủy đơn hàng</button>
         </div>
     </div>
+    {{/each}}
+    {{#unless listOrder}}
     <div class="order__no-product">
         <img src="/images/no-cart.png" alt="" class="order__no-product-img">
         <h3 class="order__no-product-h3">
             Không có sản phẩm
         </h3>
     </div>
+    {{/unless}}
 
 </div>
 <div class="overlay">

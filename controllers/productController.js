@@ -69,6 +69,7 @@ class productController {
         if (cart && newBook) {
             var bookExist = false;
             var quantity = parseInt(req.body.quantity);
+            console.log(quantity);
             cart.books.forEach(book => {
                 if (book.bookId == bookId) {    // exist book: increase quantity
                     bookExist = true;
