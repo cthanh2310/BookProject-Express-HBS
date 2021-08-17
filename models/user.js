@@ -13,7 +13,7 @@ const userSchema = new mongoose.Schema({
     password: {
         type: String,
         required: [true, 'Băt buộc nhập mật khẩu'],
-        minlength: [6, 'Mật khẩu tối thiểu 6 ký tự']
+        match: [/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])([a-zA-Z0-9]{8})$/, 'Mật khẩu không hợp lệ!']
     },
     fullname: {
         type: String,
@@ -26,6 +26,7 @@ const userSchema = new mongoose.Schema({
     phoneNumber: {
         type: String,
         trim: true,
+        match: [/(84|0[3|5|7|8|9])+([0-9]{8})\b/, 'Vui lòng nhập đúng số điện thoại!']
     },
     gender: {
         type: String,
