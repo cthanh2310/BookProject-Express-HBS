@@ -49,6 +49,10 @@ router.delete('/book-manage/delete/:id', adminController.deleteBook);
 
 router.get('/bill-manage', adminController.billManage);
 
+router.get('/bill-manage/get-data', adminController.getData);
+
+router.put('/bill-manage', adminController.updateOrderStatus);
+
 router.get('/profile', adminController.profile);
 
 

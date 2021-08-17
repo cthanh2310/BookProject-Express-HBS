@@ -83,9 +83,23 @@ class adminController {
         }
     }
     async billManage(req, res, next) {
-        const listOrder = await orders.find({});
-        console.log(listOrder);
+        const listOrder = await orders.find({}).populate('listProduct.productId', ['name', 'price']).lean();
         res.render('bill-manage', { layout: 'admin', listOrder });
+    }
+    async getData(req, res, next) {
+        console.log(req.body);
+
+        const listOrder = await orders.find({}).populate('listProduct.productId', ['name', 'price']).lean();
+        return res.json(listOrder);
+    }
+    async updateOrderStatus(req, res, next){
+        var listOrderIdAndStatus = req.body;
+        listOrderIdAndStatus.forEach(async OrderIdAndStatus =>{
+            await orders.findOneAndUpdate({ _id: OrderIdAndStatus.orderId }, {status: OrderIdAndStatus.status});
+        })
+        res.status(200).json({
+            status: 'Update thành công!',
+        })
     }
 
     profile(req, res, next) {

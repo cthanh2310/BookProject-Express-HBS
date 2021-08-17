@@ -14,7 +14,7 @@ app.use(cookieParser());
 
 console.log('port env: ' + process.env.app_port)
 const route = require('./routes/index');
-const handlebars = require('express-handlebars');
+const handlebars = require('express-handlebars'); 
 app.use(express.static(path.join(__dirname, 'public')));  //static file: use in template engine 
 app.use(
     express.urlencoded({
@@ -24,6 +24,9 @@ app.use(
 );
 app.use(express.json({limit: '50mb'}));
 // XMLHTTP request, fetch, axios, ajax of jquery -->send database to server
+
+var hbs = handlebars.create({});
+
 app.engine(
     'hbs',
     handlebars({
@@ -34,7 +37,12 @@ app.engine(
             },
             convertToVND: function(a){
                 return a.toLocaleString('vi', {style : 'currency', currency : 'VND'});;
-            }
+            },
+            select: function(selected, options) {
+                return options.fn(this).replace(
+                    new RegExp(' value=\"' + selected + '\"'),
+                    '$& selected="selected"');
+            },
         }
     }),
     

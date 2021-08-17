@@ -1,7 +1,25 @@
 .bill__title {
-  margin: 10px;
+  margin: 0 20px 10px 10px;
   font-size: 1.5rem;
-  font-weight: 600; }
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end; }
+
+.bill__title-update-status {
+  background-color: var(--orange-color);
+  justify-content: center;
+  border: none;
+  font-size: 1.6rem;
+  color: #fff;
+  border-radius: 3px;
+  height: 24px;
+  font-weight: 500;
+  margin-top: 30px; }
+
+.bill__title-update-status:hover {
+  background-color: #f5af76;
+  cursor: pointer; }
 
 .bill__title select {
   outline: none; }
@@ -44,7 +62,8 @@
   list-style: none;
   width: calc(100% - 100px);
   padding-left: 10px;
-  margin: 0; }
+  margin: 0;
+  padding: 0; }
 
 .td__img-modifier ul li {
   margin-bottom: 5px; }
