@@ -14,7 +14,7 @@ app.use(methodOverride('_method'))
 const cookieParser = require('cookie-parser');
 app.use(cookieParser());
 
-console.log('port env: ' + process.env.app_port)
+// console.log('port env: ' + process.env.app_port)  //? gi day in ra de test xem da an cai .env chua. hoi dau t moi tao project
 const route = require('./routes/index');
 const handlebars = require('express-handlebars'); 
 app.use(express.static(path.join(__dirname, 'public')));  //static file: use in template engine 
