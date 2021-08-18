@@ -1,4 +1,6 @@
-require('dotenv').config({path: './configs/.env'});
+if(process.env.NODE_ENV != "production"){  // neu dev thi import cai dotenv de dung env tu .env ; neu da len production thi dung env trong config vars 
+    require('dotenv').config({path: './configs/.env'});
+}
 //connect DB 
 const {connectDB} = require('./configs/db.js');
 connectDB();
