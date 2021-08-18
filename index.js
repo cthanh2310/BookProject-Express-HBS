@@ -73,7 +73,7 @@ app.set('view engine', 'hbs'); // Set view engine = handlebars
 app.set('views', path.join(__dirname, 'resources', 'views'));
 
 route(app);
-const port = 3000;
+const port = process.env.PORT || 3000;
 app.listen(port, () => {
     console.log(`App listening at http://localhost:${port} `);
 });
