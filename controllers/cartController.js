@@ -3,6 +3,8 @@ const jwt = require('jsonwebtoken');
 const carts = require('../models/cart');
 const books = require('../models/book');
 const orders = require('../models/order');
+const nodeMailer = require('../utils/nodeMailer');
+
 
 class cartController {
     async cart(req, res, next) {
@@ -70,7 +72,21 @@ class cartController {
                 customerPhone: req.body.customerPhone,
                 customerAccount: userId,
             }
-            console.log(order);
+            const user = await users.findOne({ _id: userId })
+                .then(user => user.toObject())
+                .catch(err => {
+                    return next(err);
+                })
+            console.log(user.email);
+            const to = user.email;
+            const subject = `
+                Cảm ơn bạn đã mua hàng tại thanhsimp_
+             `
+            const htmlContent = ` <h3>
+                    Cảm ơn ${req.body.customerName} đã mua hàng tại thanhsimp_,
+                    Chúc bạn ngày mới tốt lành!  </h3>
+                `
+            await nodeMailer.sendMail(to, subject, htmlContent);
             const orderSuccess = await orders.create(order);
             await carts.updateOne({ _id: req.body.cartId }, { $set: { books: [] } });
             return res.status(200).json({

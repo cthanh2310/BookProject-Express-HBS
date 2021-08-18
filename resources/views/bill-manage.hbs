@@ -240,7 +240,7 @@
         console.log(orderIdAndStatusObject);
         axios.put('/admin/bill-manage', orderIdAndStatusObject)
             .then(function (response) {
-                console.log(response.data);
+                alert(response.data.status)
             })
             .catch(function (error) {
                 console.log(error.message);

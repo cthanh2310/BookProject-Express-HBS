@@ -30,6 +30,7 @@ const orderSchema = new mongoose.Schema({
     },
     customerPhone: {
         type: String,
+        trim: true,
         require: [true, 'Số điện thoại bắt buộc!'],
         match: [/(84|0[3|5|7|8|9])+([0-9]{8})\b/, 'Vui lòng nhập đúng số điện thoại!']
     },
