@@ -38,11 +38,31 @@ app.engine(
             convertToVND: function(a){
                 return a.toLocaleString('vi', {style : 'currency', currency : 'VND'});;
             },
-            select: function(selected, options) {
+            select: function(selected, options) {    // check status of product. render status correct !
                 return options.fn(this).replace(
                     new RegExp(' value=\"' + selected + '\"'),
                     '$& selected="selected"');
             },
+            setChecked: function (value, currentValue) {
+                if ( value == currentValue ) {
+                   return "checked";
+                } else {
+                   return "";
+                }
+             },
+             setDate: function(a){
+                return a.getFullYear().toString()+'-' + (a.getMonth()+1).toString()+'-' + a.getDate().toString()
+             },
+            or: function(a, b){
+                if(a!= null){
+                    return a;
+                } else return b;
+            },
+            orImage: function(a){
+                if(a!= null){
+                    return a;
+                } else return '/images/user2.png';
+            }
         }
     }),
     

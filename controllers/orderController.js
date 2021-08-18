@@ -17,7 +17,7 @@ class orderController {
 
 
 
-            const listOrder = await orders.find({customerAccount: userId}).populate('listProduct.productId', ['name', 'price', 'image']).lean();
+            const listOrder = await orders.find({customerAccount: userId, $or: [{status: 'pending'}]}).populate('listProduct.productId', ['name', 'price', 'image']).lean();
             res.render('order', { user, listOrder });
         }
         else {

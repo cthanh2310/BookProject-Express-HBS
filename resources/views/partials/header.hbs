@@ -86,11 +86,13 @@
 
                     {{#if user}}
                     <li class="cart__auth-item cart__auth-user">
-                        <img src="/images/avatar.jpg" alt="" class="cart__auth-user-img">
-                        <span class="cart__auth-user-name">{{user.email}}</span>
+                        <input type="hidden" value="{{user._id}}" id="userId">
+                        <img src="{{orImage user.avatar}}" alt="" class="cart__auth-user-img">
+                        <span class="cart__auth-user-name">{{or user.fullname user.email}}</span>
                         <ul class="cart__auth-user-menu">
-                            <li class="cart__auth-user-item"><a href="/profile/:id">Tài khoản của tôi</a></li>
+                            <li class="cart__auth-user-item"><a href="/profile">Tài khoản của tôi</a></li>
                             <li class="cart__auth-user-item"><a href="/cart">Giỏ hàng</a></li>
+                            <li class="cart__auth-user-item"><a href="/my-order">Đơn hàng </a></li>
                             <hr class="cart__auth-user-item-hr">
                             <li id="log-out" class="cart__auth-user-item"><a href="/">Đăng xuất</a></li>
                         </ul>

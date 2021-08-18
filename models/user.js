@@ -13,7 +13,6 @@ const userSchema = new mongoose.Schema({
     password: {
         type: String,
         required: [true, 'Băt buộc nhập mật khẩu'],
-        match: [/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])([a-zA-Z0-9]{8})$/, 'Mật khẩu không hợp lệ!']
     },
     fullname: {
         type: String,
@@ -22,6 +21,10 @@ const userSchema = new mongoose.Schema({
     address: {
         type: String,
         trim: true,
+    },
+    role: {
+        type: String,
+
     },
     phoneNumber: {
         type: String,
