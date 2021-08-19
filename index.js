@@ -6,9 +6,6 @@ if (process.env.NODE_ENV != "production") {  // neu dev thi import cai dotenv de
     console.log('ok in production env');
 
 }
-const bcrypt = require('bcrypt');
-const saltRounds = 10;
-module.exports.bcrypt = bcrypt;
 //connect DB 
 const { connectDB } = require('./configs/db.js');
 connectDB();
@@ -82,6 +79,6 @@ app.set('views', path.join(__dirname, 'resources', 'views'));
 
 route(app);
 const port = process.env.PORT || 3000;
-app.listen(port, () => {
+app.listen(3000, () => {
     console.log(`App listening at http://localhost:${port} `);
 });
