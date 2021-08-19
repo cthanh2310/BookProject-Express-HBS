@@ -8,28 +8,32 @@ const nodeMailer = require('../utils/nodeMailer');
 
 class cartController {
     async cart(req, res, next) {
-        const token = req.cookies['token'];
-        if (token) {
+        try {
+            const token = req.cookies['token'];
+            if (token) {
 
-            const { userId } = await jwt.verify(token, process.env.SECRET_KEY);
-            const cart = await carts.findOne({ user: userId }).populate('books.bookId', ['name', 'price', 'image']).lean();
-            console.log(cart);
-            var listBookInCart = null;
-            var cartId = null;
-            if (cart) {
-                listBookInCart = await cart.books || null;
-                cartId = await cart._id || null;
+                const { userId } = await jwt.verify(token, process.env.SECRET_KEY);
+                const cart = await carts.findOne({ user: userId }).populate('books.bookId', ['name', 'price', 'image']).lean();
+                console.log(cart);
+                var listBookInCart = null;
+                var cartId = null;
+                if (cart) {
+                    listBookInCart = await cart.books || null;
+                    cartId = await cart._id || null;
+                }
+                await users.findOne({ _id: userId })
+                    .then(user => {
+                        user = user.toObject();
+                        return res.render('cart', { user, listBookInCart, cartId });
+                    })
+                    .catch(err => {
+                        return next(err);
+                    })
+            } else {
+                res.render('cart');
             }
-            await users.findOne({ _id: userId })
-                .then(user => {
-                    user = user.toObject();
-                    return res.render('cart', { user, listBookInCart, cartId });
-                })
-                .catch(err => {
-                    return next(err);
-                })
-        } else {
-            res.render('cart');
+        } catch (err) {
+            return next(err);
         }
     }
     // async cart_post(req, res, next) {
@@ -80,21 +84,27 @@ class cartController {
             console.log(user.email);
             const to = user.email;
             const subject = `
-                Cảm ơn bạn đã mua hàng tại thanhsimp_
-             `
+                    Cảm ơn bạn đã mua hàng tại thanhsimp_
+                 `
             const htmlContent = ` <h3>
-                    Cảm ơn ${req.body.customerName} đã mua hàng tại thanhsimp_,
-                    Chúc bạn ngày mới tốt lành!  </h3>
-                `
-            await nodeMailer.sendMail(to, subject, htmlContent);
+                        Cảm ơn ${req.body.customerName} đã mua hàng tại thanhsimp_,
+                        Chúc bạn ngày mới tốt lành!  </h3>
+                    `
+            await nodeMailer.sendMail(to, subject, htmlContent)
+                .then(()=>{
+                    res.status(200).send(htmlContent)
+                })
+                .catch(err => {
+                    return next(err);
+                })
             const orderSuccess = await orders.create(order);
             await carts.updateOne({ _id: req.body.cartId }, { $set: { books: [] } });
             return res.status(200).json({
                 status: 'Xuất đơn hàng thành công, mời bạn kiếm tra đơn hàng!',
                 data: orderSuccess,
             })
-
-        } catch (err) {
+        }
+        catch (err) {
             next(err);
         }
     }

@@ -13,12 +13,13 @@
                     </div>
                     <div class="auth-form__form">
                         <div class="auth-form__group">
-                            <input type="text" placeholder="Email của bạn" name="email" class="auth-form__input">
+                            <input  required type="text" placeholder="Email của bạn" name="email" class="auth-form__input">
                         </div>
                         <div class="auth-form__group">
-                            <input type="password" placeholder="Mật khẩu của bạn" name="password"
+                            <input required type="password" placeholder="Mật khẩu của bạn" name="password"
                                 class="auth-form__input">
                         </div>
+                        <span style="color: red; display: none" id="wrong-password">Mật khẩu không chính xác</span>
                     </div>
                     <div class="auth-form__aside">
                         <div class="auth-form__help">

@@ -35,6 +35,18 @@ class homeController {
         }
 
     }
+    async returnBook(req, res, next) {
+        await books.find({})
+            .then((listBook) => {
+                listBook.map(book => book.toObject());
+                return res.json({
+                    data: listBook,
+                });
+            })
+            .catch((err) => {
+                return next(err);
+            })
+    }
     // cart(req, res, next) {
     //     res.render('cart', { layout: "auth"});
     // }
