@@ -71,7 +71,61 @@ var totalPay = 0;
 
         }
     })
-
-
-
 })()
+
+// POPUP SHOW MESSAGE
+var exitButton = document.querySelector('.pop__up-button-exit');
+exitButton.onclick = function () {
+    var overlay = document.querySelector('.overlay');
+    var popup = document.querySelector('.popup');
+    popup.style.display = 'none';
+    overlay.style.display = 'none';
+}
+var orderCancelList = document.querySelectorAll('.btn-icon-remove');
+orderCancelList.forEach(orderCancel => {
+    orderCancel.onclick = function () {
+        var overlay = document.querySelector('.overlay');
+        var popup = document.querySelector('.popup');
+        popup.style.display = 'block';
+        overlay.style.display = 'block';
+        var dataId = orderCancel.getAttribute('dataId');
+        console.log(dataId)
+        console.log(popup.lastElementChild.lastElementChild)
+        popup.lastElementChild.lastElementChild.addEventListener('click', function () { // get button element
+            event.preventDefault();
+            console.log('ok');
+            var deleteForm = document.forms['form-delete']; // get form element by name
+            deleteForm.action = '/cart/' + dataId + '?_method=DELETE';
+            console.log(deleteForm);
+            deleteForm.submit();
+        })
+    }
+})
+
+// payment
+var paymentButton = document.querySelector('.personal__info-payment-button');
+var listBook = [];
+paymentButton.onclick = () => {
+    console.log('Da thanh toan!');
+    var cartId = document.querySelector('#cart-id').value;
+    var customerName = document.querySelector('.personal__info-name-input').value;
+    var customerAddress = document.querySelector('.personal__info-address-input').value;
+    var customerPhone = document.querySelector('.personal__info-phone-number-input').value;
+    var totalPrice = document.querySelector('.pay__ship-total-h3').innerHTML;
+    totalPrice = parseInt(totalPrice.replaceAll('.', ''));
+    var listProduct = document.querySelectorAll('.product');
+    listProduct.forEach((product) => {
+        var bookId = product.querySelector('.product__bill-amount-icon-cancel').getAttribute('bookId');
+        console.log(bookId);
+        var quantity = parseInt(product.querySelector('#product__bill-amount').innerHTML);
+        listBook.push({ productId: bookId, quantity: quantity, });
+    })
+    axios.post('/cart', { cartId, customerName, customerAddress, customerPhone, totalPrice, listBook })
+        .then(response => {
+            console.log(response.data.data);
+            window.location.href = "/my-order";
+        })
+        .catch(error => {
+            console.log(error);
+        })
+}
