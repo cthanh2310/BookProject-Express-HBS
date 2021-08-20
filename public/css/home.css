@@ -198,6 +198,7 @@
   font-weight: 900; }
 
 .category__link:hover {
+  cursor: pointer;
   color: var(--primary-color); }
 
 .category__item + .category__item {

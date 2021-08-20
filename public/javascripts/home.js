@@ -1,5 +1,8 @@
 const priceRadioList = document.querySelectorAll('input[name="price"]');
 const showBookElement = document.querySelector('#show-book-list');
+const listCategory = document.querySelectorAll('.category__link');
+const inputSearch = document.querySelector('#search-book');
+const buttonSearch = document.querySelector('#search-book-btn');
 console.log(showBookElement);
 var listBook = '';
 var listBookData = {};
@@ -7,7 +10,6 @@ var listBookData = {};
 axios.get('/drop-data')
     .then((response) => {
         listBookData = response.data.data;
-        console.log(response.data)
         priceRadioList.forEach((priceRadio) => {
             priceRadio.addEventListener('click', () => {
                 let priceValue = priceRadio.value;
@@ -90,6 +92,83 @@ axios.get('/drop-data')
                 }
             })
         })
+        listCategory.forEach((category) => {
+            category.addEventListener('click', () => {
+                listBookData.forEach((data) => {
+                    if (data.category == category.innerHTML.trim()) {
+                        listBook += `
+                                    <div class="col l-3 m-4 c-6">
+                                            <a href="/product/${data._id}" class="book-detail">
+                                                <img class="book-image" src="${data.image}" alt="">
+                                                <h3 class="book-name">
+                                                    ${data.name}
+                                                </h3>
+                                                <div class="price-detail">
+                                                    <p class="book-price">
+                                                        Giá: ${data.price}
+                                                    </p>
+                                                    <p class="vnd">đ</p>
+                                                </div>
+                                            </a>
+                                        </div>
+                                `
+                    }
+                })
+                showBookElement.innerHTML = listBook;
+                listBook = '';
+            })
+        })
+        inputSearch.onkeyup = (event) => {
+            if (event.key == 'Enter') {
+                listBookData.forEach((data) => {
+                    if (data.name.normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/đ/g, 'd').replace(/Đ/g, 'D').toLowerCase().includes(inputSearch.value.toLowerCase())) {
+                        listBook += `
+                                    <div class="col l-3 m-4 c-6">
+                                            <a href="/product/${data._id}" class="book-detail">
+                                                <img class="book-image" src="${data.image}" alt="">
+                                                <h3 class="book-name">
+                                                    ${data.name}
+                                                </h3>
+                                                <div class="price-detail">
+                                                    <p class="book-price">
+                                                        Giá: ${data.price}
+                                                    </p>
+                                                    <p class="vnd">đ</p>
+                                                </div>
+                                            </a>
+                                        </div>
+                                `
+                    }
+                })
+                showBookElement.innerHTML = listBook;
+                listBook = '';
+
+            }
+        }
+        buttonSearch.onclick = () => {
+            listBookData.forEach((data) => {
+                if (data.name.normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/đ/g, 'd').replace(/Đ/g, 'D').toLowerCase().includes(inputSearch.value.toLowerCase())) {
+                    listBook += `
+                                <div class="col l-3 m-4 c-6">
+                                        <a href="/product/${data._id}" class="book-detail">
+                                            <img class="book-image" src="${data.image}" alt="">
+                                            <h3 class="book-name">
+                                                ${data.name}
+                                            </h3>
+                                            <div class="price-detail">
+                                                <p class="book-price">
+                                                    Giá: ${data.price}
+                                                </p>
+                                                <p class="vnd">đ</p>
+                                            </div>
+                                        </a>
+                                    </div>
+                            `
+                }
+            })
+            showBookElement.innerHTML = listBook;
+            listBook = '';
+        }
     })
     .catch((error) => {
         console.log(error);
