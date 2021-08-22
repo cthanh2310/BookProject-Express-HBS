@@ -27,9 +27,23 @@ class homeController {
 
                 }
             }
-            else {
-                res.render('home', { listBook });
+            if (req.user) {
+                console.log('req.session.passport.user', req.session.passport.user);
+                console.log('req.user: ', req.user)
+                const token = jwt.sign({ userId: req.user[0]._id }, process.env.SECRET_KEY);
+                res.cookie('token', token, {
+                    maxAge: 86400 * 1000, // 24 hours
+                });
+                console.log('google');
+                await users.findOne({ _id: req.user[0]._id }).lean()
+                    .then(user => {
+                        res.render('home', { listBook, user });
+                    })
+                    .catch(err => {
+                        return next(err);
+                    })
             }
+            return res.render('home', { listBook });
         } catch (err) {
             return next(err);
         }

@@ -13,7 +13,6 @@ const userSchema = new mongoose.Schema({
     },
     password: {
         type: String,
-        required: [true, 'Băt buộc nhập mật khẩu'],
     },
     fullname: {
         type: String,
@@ -43,6 +42,9 @@ const userSchema = new mongoose.Schema({
         type: String,
     },
     cloudinary_id: {
+        type: String,
+    },
+    googleId: {
         type: String,
     }
 },{

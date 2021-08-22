@@ -9,15 +9,28 @@ if (process.env.NODE_ENV != "production") {  // neu dev thi import cai dotenv de
 //connect DB 
 const { connectDB } = require('./configs/db.js');
 connectDB();
+const passport = require('passport');
 
+require('./utils/passportGoogle');
 const path = require('path');
 const express = require('express');
-var methodOverride = require('method-override')
+var methodOverride = require('method-override') //override method post at formAction
 const app = express();
 app.use(methodOverride('_method'))
 // Cookie
 const cookieParser = require('cookie-parser');
+const session = require('express-session');
 app.use(cookieParser());
+
+app.use(session({
+    secret: process.env.SECRET_KEY,
+    resave: true,
+    saveUninitialized: true
+}));
+
+//google oauth2
+app.use(passport.initialize());
+app.use(passport.session());
 
 // console.log('port env: ' + process.env.app_port)  //? gi day in ra de test xem da an cai .env chua. hoi dau t moi tao project
 const route = require('./routes/index');

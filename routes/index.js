@@ -7,7 +7,6 @@ const adminRouter = require('./admin.js');
 const profileRouter = require('./profile.js');
 const {errorHandler} = require('../middlewares/errorHandler.js');
 
-
 function route(app) {
     app.use('/', homeRouter);
 

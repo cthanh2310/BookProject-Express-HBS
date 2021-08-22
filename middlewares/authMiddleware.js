@@ -4,7 +4,9 @@ function authMiddleware(req, res, next) {
     const token = req.cookies['token'];
     if (token) {
         const userId = jwt.verify(token, process.env.SECRET_KEY);
-        next();
+        if(userId) {
+            next();
+        }
     } else {
         res.redirect('back');
     }
