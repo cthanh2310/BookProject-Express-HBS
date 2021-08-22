@@ -22,8 +22,8 @@ passport.use(
 
       if (existingUser) {
         console.log('existingUser')
-        await users.updateOne({email: profile.emails[0].value}, {googleId: profile.id});
-        return done(null, existingUser);
+        const user = await users.updateOne({email: profile.emails[0].value}, {googleId: profile.id});
+        return done(null, user);
       }
       console.log('!!!existingUser')
       const user = await new users({
