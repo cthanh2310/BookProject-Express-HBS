@@ -18,19 +18,22 @@ passport.use(
     callbackURL: process.env.GOOGLE_CALLBACK_URL,
   },
     async (accessToken, refreshToken, profile, done) => {
-      const existingUser = await users.find({ googleId: profile.id, email: profile.emails[0].value });
+      if (profile.id) {
 
-      if (existingUser) {
-        console.log('existingUser')
-        const user = await users.updateOne({email: profile.emails[0].value}, {googleId: profile.id});
-        return done(null, user);
+        users.findOne({ googleId: profile.id })
+          .then((existingUser) => {
+            if (existingUser) {
+              done(null, existingUser);
+            } else {
+              new users({
+                googleId: profile.id,
+                email: profile.emails[0].value,
+                fullname: profile.name.familyName + ' ' + profile.name.givenName
+              })
+                .save()
+                .then(user => done(null, user));
+            }
+          })
       }
-      console.log('!!!existingUser')
-      const user = await new users({
-        fullname: profile.name.familyName + ' ' + profile.name.givenName,
-        email: profile.emails[0].value,
-        googleId: profile.id,
-      }).save();
-      return done(null, user);
-    })
-);
+    }
+));
