@@ -22,9 +22,9 @@ class orderController {
         }
         res.render('order');
     }
-    async order_delete(req, res, next) {
+    async order_cancel(req, res, next) {
         console.log(req.body.orderId);
-        await orders.deleteOne({_id: req.body.orderId})
+        await orders.updateOne({_id: req.body.orderId}, {status: 'canceled'})
             .then(()=>{
                 res.status(200).json({
                     status: 'success',

@@ -19,21 +19,19 @@ passport.use(
   },
     async (accessToken, refreshToken, profile, done) => {
       if (profile.id) {
-        console.log(profile)
         users.findOne({ googleId: profile.id })
           .then((existingUser) => {
             if (existingUser) {
               return done(null, existingUser);
+            } else {
+              new users({
+                googleId: profile.id,
+                email: profile.emails[0].value,
+                fullname: profile.name.familyName + ' ' + profile.name.givenName
+              })
+                .save()
+                .then(user => done(null, user));
             }
-            const user = users.find({ email: profile.emails[0].value }).lean()
-            if (user) return done(null, user);
-            new users({
-              googleId: profile.id,
-              email: profile.emails[0].value,
-              fullname: profile.name.familyName + ' ' + profile.name.givenName
-            })
-              .save()
-              .then(user => done(null, user));
           })
       }
     }
