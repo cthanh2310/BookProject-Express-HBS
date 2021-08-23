@@ -1,13 +1,17 @@
 <head>
     <link rel="stylesheet" href="css/order.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"
+        integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
 </head>
 <div class="popup">
     <h3 class="popup__tile">Bạn chắc chắn?</h3>
     <p class="popup__description">Bạn có thật sự muốn hủy đơn hàng?</p>
-    <form action="/my-order" class="pop__up-button">
+    <div id="submit-form-delete" class="pop__up-button">
         <a class="pop__up-button-exit">Thoát</a>
-        <button class="pop__up-button-ok">Đồng ý</button>
-    </form>
+        <button type='submit' class="pop__up-button-ok" id="order-cancel-btn-ok">Đồng ý</button>
+    </div>
 </div>
 <div class="grid wide">
     <div class="row order__title">
@@ -50,7 +54,7 @@
                         </div>
                     </div>
                 </div>
-               
+
             </div>
         </div>
         <div class="list__product">
@@ -69,11 +73,13 @@
                         </div>
                         <div class="col l-4 order__product-bill--modifier">
                             <div class="order__product-bill-amount">
-                                <span id="order__product-bill-amount" class="order__product-bill-amount-span">{{this.quantity}}</span>
+                                <span id="order__product-bill-amount"
+                                    class="order__product-bill-amount-span">{{this.quantity}}</span>
                             </div>
                         </div>
                         <div class="col l-4 order__product-bill">
-                            <h3 class="order__product-bill-fee-total">{{multiplication this.productId.price this.quantity}}</h3>
+                            <h3 class="order__product-bill-fee-total">{{multiplication this.productId.price
+                                this.quantity}}</h3>
                         </div>
                     </div>
                 </div>
@@ -98,4 +104,49 @@
 <div class="overlay">
 
 </div>
-<script src="javascripts/order.js"></script>
+<script>
+    (function () {
+
+        var exitButton = document.querySelector('.pop__up-button-exit');
+        exitButton.onclick = function () {
+            var overlay = document.querySelector('.overlay');
+            var popup = document.querySelector('.popup');
+            popup.style.display = 'none';
+            overlay.style.display = 'none';
+        }
+        var orderCancelList = document.querySelectorAll('.order__cancel-button');
+        orderCancelList.forEach(orderCancel => {
+            orderCancel.onclick = function () {
+                var overlay = document.querySelector('.overlay');
+                var popup = document.querySelector('.popup');
+                popup.style.display = 'block';
+                overlay.style.display = 'block';
+                let orderId = orderCancel.getAttribute('orderId');
+                document.getElementById('order-cancel-btn-ok').addEventListener('click', () => {
+                    console.log(2)
+                    console.log(orderId)
+                    $.ajax({
+                        url: '/my-order',
+                        method: 'DELETE',
+                        data: {
+                            orderId: orderId,
+                        },
+                    })
+                        .then((response) => {
+                            console.log(response);
+                            window.location.href = '/my-order'
+                        })
+                        .catch((error) => {
+                            console.log(error);
+                        })
+
+                })
+
+            }
+        })
+
+    })()
+
+</script>
+{{!--
+<script src="javascripts/order.js"></script> --}}

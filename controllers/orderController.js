@@ -22,6 +22,18 @@ class orderController {
         }
         res.render('order');
     }
+    async order_delete(req, res, next) {
+        console.log(req.body.orderId);
+        await orders.deleteOne({_id: req.body.orderId})
+            .then(()=>{
+                res.status(200).json({
+                    status: 'success',
+                })
+            })
+            .catch(err=>{
+                return next(err);
+            })
+    }
 }
 
 module.exports = new orderController();

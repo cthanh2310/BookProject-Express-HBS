@@ -4,7 +4,10 @@ const authController = require('../controllers/authController.js');
 const passport = require('passport');
 
 router.get(
-    '/google',
+    '/google',(req, res, next) => {
+        console.log('ok')
+        next()
+    },
     passport.authenticate('google', {
         scope: ['profile', 'email']
     })
