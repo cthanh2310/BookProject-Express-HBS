@@ -17,12 +17,10 @@ class orderController {
 
 
 
-            const listOrder = await orders.find({customerAccount: userId, $or: [{status: 'pending'}]}).populate('listProduct.productId', ['name', 'price', 'image']).lean();
-            res.render('order', { user, listOrder });
+            const listOrder = await orders.find({ customerAccount: userId, $or: [{ status: 'pending' }] }).populate('listProduct.productId', ['name', 'price', 'image']).lean();
+            return res.render('order', { user, listOrder });
         }
-        else {
-            res.render('order');
-        }
+        res.render('order');
     }
 }
 

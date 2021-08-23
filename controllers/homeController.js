@@ -26,14 +26,12 @@ class homeController {
                 return res.render('home', { listBook });
             }
             if (req.user) {
-                console.log('req.session.passport.user', req.session.passport.user);
-                console.log('req.user: ', req.user)
-                const token = jwt.sign({ userId: req.user._id }, process.env.SECRET_KEY);
-                res.cookie('token', token, {
+                const token = await jwt.sign({ userId: req.user._id }, process.env.SECRET_KEY);
+                await res.cookie('token', token, {
                     maxAge: 86400 * 1000, // 24 hours
                 });
                 console.log('google');
-                await users.findOne({ _id: req.user._id }).lean()
+                return users.findOne({ _id: req.user._id }).lean()
                     .then(user => {
                         return res.render('home', { listBook, user });
                     })

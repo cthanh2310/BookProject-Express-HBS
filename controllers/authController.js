@@ -40,6 +40,13 @@ class authController {
             return next(err);
         }
     }
+    async logout(req, res, next) {
+        req.session.destroy(function(e){
+            req.logout();
+            res.redirect('/');
+        });
+    }
+
     async register_post(req, res, next) {
         try {
             if (req.body.password == req.body.confirmPassword) {

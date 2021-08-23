@@ -81,7 +81,6 @@ class cartController {
                 .catch(err => {
                     return next(err);
                 })
-            console.log(user.email);
             const to = user.email;
             const subject = `
                     Cảm ơn bạn đã mua hàng tại thanhsimp_
@@ -97,12 +96,8 @@ class cartController {
                 .catch(err => {
                     return next(err);
                 })
-            const orderSuccess = await orders.create(order);
+            await orders.create(order);
             await carts.updateOne({ _id: req.body.cartId }, { $set: { books: [] } });
-            return res.status(200).json({
-                status: 'Xuất đơn hàng thành công, mời bạn kiếm tra đơn hàng!',
-                data: orderSuccess,
-            })
         }
         catch (err) {
             next(err);

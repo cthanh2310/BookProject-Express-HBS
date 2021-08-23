@@ -15,6 +15,8 @@ router.post('/login', authController.login_post);
 
 router.get('/login', authController.login);  // auth/login
 
+router.get('/logout', authController.logout);  // auth/logout
+
 
 router.post('/register', authController.register_post);
 
