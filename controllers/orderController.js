@@ -23,16 +23,25 @@ class orderController {
         res.render('order');
     }
     async order_cancel(req, res, next) {
-        console.log(req.body.orderId);
-        await orders.updateOne({_id: req.body.orderId}, {status: 'canceled'})
-            .then(()=>{
+        console.log('orderId: ', req.body.orderId);
+        await orders.updateOne({ _id: req.body.orderId }, { status: 'canceled' })
+            .then(() => {
                 res.status(200).json({
                     status: 'success',
                 })
             })
-            .catch(err=>{
+            .catch(err => {
                 return next(err);
             })
+    }
+    async getListOrder(req, res, next) {
+        const token = req.cookies['token'];
+        if (token) {
+            const { userId } = await jwt.verify(token, process.env.SECRET_KEY);
+            const listOrder = await orders.find({customerAccount: userId}).populate('listProduct.productId', ['name', 'price', 'image']).lean();
+            return res.status(200).json(listOrder);
+        }
+
     }
 }
 

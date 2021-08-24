@@ -122,7 +122,6 @@ paymentButton.onclick = () => {
     })
     axios.post('/cart', { cartId, customerName, customerAddress, customerPhone, totalPrice, listBook })
         .then(response => {
-            console.log(response.data.data);
             window.location.href = "/my-order";
         })
         .catch(error => {

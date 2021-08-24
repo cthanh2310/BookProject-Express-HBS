@@ -5,6 +5,8 @@ const {authMiddleware} = require('../middlewares/authMiddleware.js')
 
 router.put('/',authMiddleware, orderController.order_cancel);
 
+router.get('/get-data', authMiddleware, orderController.getListOrder);
+
 router.get('/',authMiddleware, orderController.order);
 
 
