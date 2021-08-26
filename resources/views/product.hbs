@@ -108,7 +108,10 @@
                     <div class="review__my-comment">
                         <textarea placeholder="Thêm bình luận..." role="textbox" contenteditable
                             class="review__textarea" id="review__textarea" cols="30" rows="10"></textarea>
-                        <button id="comment-btn" class="review__my-comment--btn">Bình luận</button>
+                        <div>
+                            <span id="people-focusing-id" class="people-focusing">Có người đang nhập ...</span>
+                            <button id="comment-btn" class="review__my-comment--btn">Bình luận</button>
+                        </div>
                     </div>
                     <div class="review__list-comment">
                         {{#each listReview}}
@@ -198,6 +201,13 @@
             }
         })
 
+        socket.on('focus', function () {
+            document.getElementById('people-focusing-id').style.display = 'block';
+        })
+        socket.on('blur', function () {
+            document.getElementById('people-focusing-id').style.display = 'none';
+        })
+
         var reviewFunc = function () {
             console.log(link)
             socket.emit('connection', link);
@@ -207,8 +217,23 @@
                 var reviewContent = document.querySelector('#review__textarea').value;
                 socket.emit('sendData', { reviewContent, link, token });
             })
+            var commentTextArea = document.querySelector('#review__textarea');
+            commentTextArea.addEventListener('keyup', function (event) {
+                if (event.keyCode === 13) {
+                    // Cancel the default action, if needed
+                    event.preventDefault();
+                    // Trigger the button element with a click
+                    commentBTN.click();
+                }
+            });
+            document.querySelector('#review__textarea').addEventListener('focus', () => {
+                socket.emit('focus', link);
+            })
+            document.querySelector('#review__textarea').addEventListener('blur', () => {
+                socket.emit('blur', link);
+            })
+        }
 
-        };
         window.onload = reviewFunc();
 
 
