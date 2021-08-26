@@ -166,6 +166,9 @@
         }
         var port = getCookie('port');
         console.log(port);
+        if (port != 3000) {
+            var socket = io.connect(`https://book-express-handlebars.herokuapp.com/`);
+        }
         var socket = io.connect(`http://localhost:${port}`);
         socket.on('sendData', function (data) {
             console.log(data);
