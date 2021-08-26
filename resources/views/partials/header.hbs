@@ -118,9 +118,12 @@
         document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
     }
     const logOut = document.getElementById('log-out');
-    logOut.addEventListener('click', function () {
-        setCookie('token', '', 0)
-        console.log('ok');
-    })
+    if (logOut) {
+        logOut.addEventListener('click', function () {
+            setCookie('token', '', 0)
+            console.log('ok');
+        })
+
+    }
 
 </script>

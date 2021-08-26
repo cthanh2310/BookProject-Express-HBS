@@ -2,11 +2,15 @@ const books = require('../models/book');
 const jwt = require('jsonwebtoken');
 const users = require('../models/user');
 const carts = require('../models/cart');
-
+const reviews = require('../models/review');
 
 class productController {
     async product(req, res, next) {
         try {
+            res.cookie('port', parseInt(process.env.PORT), {
+                maxAge: 86400 * 1000 * 1000, // 24 hours
+            });
+            console.log(req.cookies['port']);
             const bookId = req.params.id;
             const book = await books.findOne({ _id: bookId })
                 .then(book => {
@@ -22,6 +26,7 @@ class productController {
                 .catch(err => {
                     next(err);
                 })
+            const listReview = await reviews.find({book: bookId}).populate('user').sort({_id:-1}).lean();  // sort by time created
             const token = req.cookies['token'];
             if (token) {
                 const { userId } = await jwt.verify(token, process.env.SECRET_KEY);
@@ -32,10 +37,11 @@ class productController {
                     .catch((err) => {
                         return next(err);
                     })
-                res.render('product', { book, user });
+
+                res.render('product', { book, user, listReview });
             }
             else {
-                res.render('product', { book });
+                res.render('product', { book, listReview });
             }
         } catch(err) {
             return next(err);

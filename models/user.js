@@ -39,6 +39,7 @@ const userSchema = new mongoose.Schema({
         type: Date,
     },
     avatar: {
+        default: 'https://res.cloudinary.com/cthanh2310/image/upload/v1629953121/nkim6gk4qtfrsepepzs5.png',
         type: String,
     },
     cloudinary_id: {

@@ -22,12 +22,12 @@ function route(app) {
 
     app.use('/profile', profileRouter);
 
-    app.all('*', (req, res, next) => {
+    /* app.all('*', (req, res, next) => {
         const err = new Error('Page Not Found!');
         console.log(err);
         err.statusCode = 404;  // send statusCode and message Error 
         next(err);
-    })
+    }) */
 
     app.use(errorHandler);
 
