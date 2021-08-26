@@ -164,11 +164,10 @@
             }
             return null;
         }
-
         var socket = io.connect();
         socket.on('sendData', function (data) {
-            console.log(data);
-            var htmlTextReview = `
+            if (data) {
+                var htmlTextReview = `
                 <div class="review__comment row no-gutters">
                             <div class="col l-1">
                                 <div class="review__avatar">
@@ -192,8 +191,11 @@
                         </div>
             
             `
-            htmlTextReview += document.querySelector('.review__list-comment').innerHTML;
-            document.querySelector('.review__list-comment').innerHTML = htmlTextReview;
+                htmlTextReview += document.querySelector('.review__list-comment').innerHTML;
+                document.querySelector('.review__list-comment').innerHTML = htmlTextReview;
+            } else {
+                alert('Vui lòng đăng nhập trước khi thêm bình luận')
+            }
         })
 
         var reviewFunc = function () {

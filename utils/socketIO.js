@@ -36,7 +36,7 @@ module.exports =async function (io) {
                 error.message = 'User no found!'
                 return error;
             }
-            socket.emit('sendData', 'Vui lòng đăng nhập trước khi thêm bình luận!')
+            socket.emit('sendData')
         })
     })
 }
