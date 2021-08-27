@@ -13,8 +13,20 @@ const reviewSchema = new mongoose.Schema({
     content: {
         type: String,
         trim: true,
-    }
-},{ timestamps : true})
+    },
+    likes: [
+        {                            //who like this comment
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "users"
+        },
+    ],
+    dislikes: [
+        {                            //who dislike this comment
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "users"
+        }
+    ],
+}, { timestamps: true })
 
 const reviews = mongoose.model('reviews', reviewSchema);
 

@@ -1,6 +1,6 @@
 <head>
     <link rel="stylesheet" href="/css/product.css">
-    <script src="http://localhost:3000/socket.io/socket.io.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
 
 </head>
 <div class="grid wide">
@@ -128,7 +128,8 @@
                                         <p>{{this.content}}</p>
                                     </div>
                                     <div class="content__react">
-                                        <span class="content__react-like"><i class="fas fa-thumbs-up"></i> <span
+                                        <span onclick="like('{{this._id}}')" class="content__react-like"><i
+                                                class="fas fa-thumbs-up"></i> <span
                                                 class="content__react-amount">13</span></span>
                                         <span class="content__react-dislike"><i class="fas fa-thumbs-down"></i> <span
                                                 class="content__react-amount">1</span></span>
@@ -167,11 +168,19 @@
             }
             return null;
         }
+        var token = getCookie('token');
         var socket = io.connect();
+        function getParentElement(element, selector) {
+            while (!element.parentElement.matches(selector)) {
+                element = element.parentElement;
+            }
+            return element.parentElement;
+        }
         socket.on('sendData', function (data) {
             if (data) {
                 var htmlTextReview = `
                 <div class="review__comment row no-gutters">
+                            <input type="hidden" id="review-id" data-id="${data.reviewID}">    
                             <div class="col l-1">
                                 <div class="review__avatar">
                                     <img src="${data.avatar}" alt="">
@@ -184,7 +193,7 @@
                                         <p>${data.reviewContent}</p>
                                     </div>
                                     <div class="content__react">
-                                        <span class="content__react-like"><i class="fas fa-thumbs-up"></i> <span
+                                        <span onclick="like('${data.reviewID}')" class="content__react-like"><i class="fas fa-thumbs-up"></i> <span
                                                 class="content__react-amount">10</span></span>
                                         <span class="content__react-dislike"><i class="fas fa-thumbs-down"></i> <span
                                                 class="content__react-amount">2</span></span>
@@ -195,6 +204,7 @@
             
             `
                 htmlTextReview += document.querySelector('.review__list-comment').innerHTML;
+                document.querySelector('#review__textarea').value = '';
                 document.querySelector('.review__list-comment').innerHTML = htmlTextReview;
             } else {
                 alert('Vui lòng đăng nhập trước khi thêm bình luận')
@@ -207,32 +217,42 @@
         socket.on('blur', function () {
             document.getElementById('people-focusing-id').style.display = 'none';
         })
-
+        function like(reviewID) {
+            console.log(reviewID)
+            console.log(token)
+            socket.emit('like', {reviewID, token, link})
+        }
         var reviewFunc = function () {
             console.log(link)
             socket.emit('connection', link);
             var commentBTN = document.querySelector('#comment-btn');
             commentBTN.addEventListener('click', function (event) {
-                var token = getCookie('token');
                 var reviewContent = document.querySelector('#review__textarea').value;
                 socket.emit('sendData', { reviewContent, link, token });
             })
-            var commentTextArea = document.querySelector('#review__textarea');
-            commentTextArea.addEventListener('keyup', function (event) {
-                if (event.keyCode === 13) {
-                    // Cancel the default action, if needed
-                    event.preventDefault();
-                    // Trigger the button element with a click
-                    commentBTN.click();
-                }
-            });
+
             document.querySelector('#review__textarea').addEventListener('focus', () => {
                 socket.emit('focus', link);
             })
             document.querySelector('#review__textarea').addEventListener('blur', () => {
                 socket.emit('blur', link);
             })
+            // like    
+
+
+            /* if (reactLike) {
+                reactLike.addEventListener('click', () => {
+                    if (document.querySelector('.fa-thumbs-up').classList.contains('content__react-like--color')) {
+                        return document.querySelector('.fa-thumbs-up').classList.remove('content__react-like--color')
+                    }
+                    return document.querySelector('.fa-thumbs-up').classList.add('content__react-like--color')
+
+                })
+            } */
         }
+
+
+
 
         window.onload = reviewFunc();
 

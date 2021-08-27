@@ -24,12 +24,16 @@ module.exports = async function (io) {
                     let reviewContent = await data.reviewContent;
                     let avatar = await user.avatar;
                     let fullname = await user.fullname || user.email;
-                    await reviews.create({
+                    let review = await reviews.create({
                         user: userId,
                         book: data.link,
                         content: data.reviewContent,
                     })
-                    return io.sockets.in(data.link).emit('sendData', { avatar, fullname, reviewContent }) // Send data to room data.link
+                        .then((review) => {
+                            return review.toObject();
+                        })
+                    let reviewID = review._id;
+                    return io.sockets.in(data.link).emit('sendData', { reviewID, avatar, fullname, reviewContent }) // Send data to room data.link
                 }
                 const error = new Error();
                 error.status = 404;
@@ -46,6 +50,45 @@ module.exports = async function (io) {
         socket.on('blur', function (link) {  // opposite of above
             socket.join(link)
             return socket.broadcast.to(link).emit('blur');
+        })
+        socket.on('like', async function (data) {
+            console.log(data);
+            if (data.token) {
+                const token = data.token;
+                const { userId } = await jwt.verify(token, process.env.SECRET_KEY)
+                if (userId) {
+                    socket.join(data.link)
+                    console.log(userId)
+                    const review = await reviews.findOne({ _id: data.reviewID }).lean()
+                    console.log(review)
+                    // console.log(review.likes.includes(userId))
+                    if(review.likes.indexOf({userId}) < 0){
+                        review.likes.push({userId: userId});
+                    } else {
+                        review.likes.splice(review.likes.indexOf({userId}), 1)
+                    }
+                    console.log('new review: ', review);
+                    await reviews.updateOne({ _id: data.reviewID}, {likes: review.likes}).lean()
+                    /*  review.likes.forEach((like) => {
+                        if(like == userId) {
+                            reviews.updateOne({ _id: data.review},{
+                                $pull: {
+                                    likes: {
+                                        _id: userId
+                                    }
+                                }
+                            })
+                            return io.socket.in(data.link).emit('link', 'liked');
+                        }
+
+                    }) */
+                }
+                const error = new Error();
+                error.status = 404;
+                error.message = 'User no found!'
+                return error;
+            }
+            socket.emit('like');
         })
     })
 }

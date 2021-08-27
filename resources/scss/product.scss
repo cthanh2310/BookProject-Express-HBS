@@ -240,11 +240,15 @@
 }
 .content__react {
 }
+
 .content__react-like {
   font-size: 1.4rem;
   cursor: pointer;
   padding-right: 10px;
   color: #999;
+}
+.content__react-like--color{
+  color: #065fd4;
 }
 .content__react-like:active {
   color: #065fd4;

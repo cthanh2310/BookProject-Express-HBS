@@ -223,6 +223,9 @@
   padding-right: 10px;
   color: #999; }
 
+.content__react-like--color {
+  color: #065fd4; }
+
 .content__react-like:active {
   color: #065fd4; }
 

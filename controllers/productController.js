@@ -10,7 +10,6 @@ class productController {
             res.cookie('port', parseInt(process.env.PORT), {
                 maxAge: 86400 * 1000 * 1000, // 24 hours
             });
-            console.log(req.cookies['port']);
             const bookId = req.params.id;
             const book = await books.findOne({ _id: bookId })
                 .then(book => {
