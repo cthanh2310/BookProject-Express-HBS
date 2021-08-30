@@ -7,9 +7,6 @@ const reviews = require('../models/review');
 class productController {
     async product(req, res, next) {
         try {
-            res.cookie('port', parseInt(process.env.PORT), {
-                maxAge: 86400 * 1000 * 1000, // 24 hours
-            });
             const bookId = req.params.id;
             const book = await books.findOne({ _id: bookId })
                 .then(book => {
@@ -25,7 +22,7 @@ class productController {
                 .catch(err => {
                     next(err);
                 })
-            const listReview = await reviews.find({book: bookId}).populate('user').sort({_id:-1}).lean();  // sort by time created
+            const listReview = await reviews.find({ book: bookId }).populate('user').sort({ _id: -1 }).lean();  // sort by time created
             const token = req.cookies['token'];
             if (token) {
                 const { userId } = await jwt.verify(token, process.env.SECRET_KEY);
@@ -36,13 +33,48 @@ class productController {
                     .catch((err) => {
                         return next(err);
                     })
-
                 res.render('product', { book, user, listReview });
             }
             else {
                 res.render('product', { book, listReview });
             }
-        } catch(err) {
+        } catch (err) {
+            return next(err);
+        }
+    }
+    async getReviewLiked(req, res, next) {
+        try {
+            const bookId = req.params.id;
+            const book = await books.findOne({ _id: bookId })
+                .then(book => {
+                    if (book) {
+                        book = book.toObject();
+                        return book;
+                    } else {
+                        res.status(404).json({
+                            message: '404 not found :(',
+                        })
+                    }
+                })
+                .catch(err => {
+                    next(err);
+                })
+            const listReview = await reviews.find({ book: bookId }).lean();  // sort by time created
+            const token = req.cookies['token'];
+            if(token){
+                let listReviewLiked = [];
+                const {userId} = jwt.verify(token, process.env.SECRET_KEY)
+                listReview.forEach(review => {
+                    review.likes.forEach(user =>{
+                        if(user == userId){
+                            listReviewLiked.push(review._id);
+                            return;
+                        }
+                    })
+                })
+                res.json(listReviewLiked)
+            }
+        } catch (err) {
             return next(err);
         }
     }
@@ -117,6 +149,8 @@ class productController {
         }
 
     }
+
+
 }
 /*
 const listBook = await books.find({})

@@ -127,12 +127,14 @@
                                     <div class="content__details">
                                         <p>{{this.content}}</p>
                                     </div>
-                                    <div class="content__react">
-                                        <span onclick="like('{{this._id}}')" class="content__react-like"><i
-                                                class="fas fa-thumbs-up"></i> <span
-                                                class="content__react-amount">13</span></span>
-                                        <span class="content__react-dislike"><i class="fas fa-thumbs-down"></i> <span
-                                                class="content__react-amount">1</span></span>
+                                    <div class="content__react" id="{{this._id}}">
+                                        <span onclick="like('{{this._id}}')" class="content__react-like">
+                                            <i class="fas fa-thumbs-up"></i>
+
+                                            <span class="content__react-amount">{{length this.likes}}</span>
+                                        </span>
+                                        {{!-- <span class="content__react-dislike"><i class="fas fa-thumbs-down"></i>
+                                            <span class="content__react-amount"></span></span> --}}
                                     </div>
                                 </div>
                             </div>
@@ -192,11 +194,12 @@
                                     <div class="content__details">
                                         <p>${data.reviewContent}</p>
                                     </div>
-                                    <div class="content__react">
-                                        <span onclick="like('${data.reviewID}')" class="content__react-like"><i class="fas fa-thumbs-up"></i> <span
-                                                class="content__react-amount">10</span></span>
-                                        <span class="content__react-dislike"><i class="fas fa-thumbs-down"></i> <span
-                                                class="content__react-amount">2</span></span>
+                                    <div class="content__react" id="${data.reviewID}">
+                                        <span onclick="like('${data.reviewID}')" class="content__react-like">
+                                            <i class="fas fa-thumbs-up"></i>
+                                            <span class="content__react-amount"></span>
+                                        </span>
+                                     
                                     </div>
                                 </div>
                             </div>
@@ -218,12 +221,45 @@
             document.getElementById('people-focusing-id').style.display = 'none';
         })
         function like(reviewID) {
-            console.log(reviewID)
-            console.log(token)
-            socket.emit('like', {reviewID, token, link})
+            socket.emit('like', { reviewID, token, link })
         }
+        socket.on('like', (data) => {
+            if (data) {
+                let reactElement = document.getElementById(data.reviewID);
+
+                return reactElement.innerHTML =
+                    `
+                    <span onclick="like('${data.reviewID}')" class="content__react-like"><i
+                            class="fas fa-thumbs-up"></i> <span
+                            class="content__react-amount">${data.length = data.length > 0 ? data.length : ''}</span></span>
+                `
+
+            }
+            return alert('Vui lòng đăng nhập để thích bình luận này!')
+        })
+        socket.on('onlyMeSeeStatusLike', (data) => {
+            let reactElement = document.getElementById(data.reviewID);
+            if (data.status == 'like' && data.token == token) {
+                return reactElement.querySelector('.fa-thumbs-up').classList.add('content__react-like--color');
+            } else if (data.status == 'unlike' && data.token == token) {
+                return reactElement.querySelector('.fa-thumbs-up').classList.remove('content__react-like--color');
+            }
+        })
+
         var reviewFunc = function () {
-            console.log(link)
+            axios.get(`/product/${link}/get-review-liked`)
+                .then(response => {
+                    response.data.forEach((reviewId) => {
+                        document.getElementById(`${reviewId}`).querySelector('.fa-thumbs-up').classList.add('content__react-like--color')
+                    })
+                })
+                .catch(err => {
+                    console.log(err);
+
+                })
+
+
+
             socket.emit('connection', link);
             var commentBTN = document.querySelector('#comment-btn');
             commentBTN.addEventListener('click', function (event) {
@@ -238,6 +274,8 @@
                 socket.emit('blur', link);
             })
             // like    
+
+
 
 
             /* if (reactLike) {

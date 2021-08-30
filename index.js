@@ -95,12 +95,17 @@ app.engine(
             or: function (a, b) {
                 if (a != null) {
                     return a;
-                } else return b;
+                }
+                return b;
             },
             orImage: function (a) {
                 if (a != null) {
                     return a;
                 } else return '/images/user2.png';
+            },
+            length: function (a) {
+                if (a.length > 0) return a.length;
+                return null;
             }
         }
     }),

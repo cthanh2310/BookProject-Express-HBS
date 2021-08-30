@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
 const users = require('../models/user');
 const reviews = require('../models/review');
+const mongoose = require('mongoose');
 module.exports = async function (io) {
     io.on('connection', (socket) => {
         console.log('user is accessing: ' + socket.id);
@@ -52,43 +53,52 @@ module.exports = async function (io) {
             return socket.broadcast.to(link).emit('blur');
         })
         socket.on('like', async function (data) {
-            console.log(data);
+            // console.log(data);
             if (data.token) {
                 const token = data.token;
-                const { userId } = await jwt.verify(token, process.env.SECRET_KEY)
+                var { userId } = await jwt.verify(token, process.env.SECRET_KEY)
                 if (userId) {
                     socket.join(data.link)
-                    console.log(userId)
-                    const review = await reviews.findOne({ _id: data.reviewID }).lean()
-                    console.log(review)
-                    // console.log(review.likes.includes(userId))
-                    if(review.likes.indexOf({userId}) < 0){
-                        review.likes.push({userId: userId});
-                    } else {
-                        review.likes.splice(review.likes.indexOf({userId}), 1)
-                    }
-                    console.log('new review: ', review);
-                    await reviews.updateOne({ _id: data.reviewID}, {likes: review.likes}).lean()
-                    /*  review.likes.forEach((like) => {
-                        if(like == userId) {
-                            reviews.updateOne({ _id: data.review},{
-                                $pull: {
-                                    likes: {
-                                        _id: userId
-                                    }
-                                }
-                            })
-                            return io.socket.in(data.link).emit('link', 'liked');
-                        }
+                    let review = await reviews.findOne({ _id: data.reviewID })
+                        .then((review => {
+                            return review.toObject()
+                        }))
+                        .catch(err => {
+                            return err;
+                        })
+                    var exist = false;
+                    if (review.likes.length > 0) {
+                        review.likes.forEach(async (user) => {
+                            if (user == userId) {
+                                exist = true;
 
-                    }) */
+                                // console.log('new like' + newLikew)
+                                review.likes.splice(review.likes.indexOf(user), 1);
+                                await reviews.updateOne({ _id: data.reviewID },
+                                    {
+                                        likes: review.likes,
+                                    }
+                                )
+                                let length = review.likes.length;
+                                io.sockets.in(data.link).emit('like', { length, reviewID: data.reviewID, token})  // send to all people in room
+                                socket.emit('onlyMeSeeStatusLike', {reviewID: data.reviewID,token, status: 'unlike'}) 
+                            }
+                        })
+                    }
+                    if (!exist) {
+                        review.likes.push(userId);
+                        await reviews.updateOne({ _id: data.reviewID }, { likes: review.likes })
+                        let length = review.likes.length;
+                        io.sockets.in(data.link).emit('like', { length, reviewID: data.reviewID, token}) // send to all people in room
+                        socket.emit('onlyMeSeeStatusLike', {reviewID: data.reviewID,token, status: 'like'}) 
+                    }
                 }
                 const error = new Error();
                 error.status = 404;
                 error.message = 'User no found!'
                 return error;
             }
-            socket.emit('like');
+            return socket.emit('like')
         })
     })
 }
