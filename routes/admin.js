@@ -1,29 +1,33 @@
 const express = require('express');
 const router = express.Router();
 const adminController = require('../controllers/adminController.js');
-var upload = require('../utils/multer');
+const upload = require('../utils/multer');
+const {adminMiddleware} = require('../middlewares/adminMiddleware');
 
 router.get('/login', adminController.login);
 
-router.get('/dashboard', adminController.dashboard);
+router.post('/login', adminController.login_post);
+
+
+router.get('/dashboard',adminMiddleware, adminController.dashboard);
 // book
-router.get('/book-manage', adminController.bookManage);
+router.get('/book-manage',adminMiddleware, adminController.bookManage);
 
-router.post('/book-manage',upload.single('myfile'), adminController.addBook);
+router.post('/book-manage',adminMiddleware, upload.single('myfile'), adminController.addBook);
 
-router.post('/book-manage/store', adminController.bookManage_post);  // Store database to use Ajax
+router.post('/book-manage/store',adminMiddleware, adminController.bookManage_post);  // Store database to use Ajax
 
-router.put('/book-manage/update', upload.single('myfile'), adminController.updateBook); // Update
+router.put('/book-manage/update',adminMiddleware, upload.single('myfile'), adminController.updateBook); // Update
 
-router.delete('/book-manage/delete/:id', adminController.deleteBook);
+router.delete('/book-manage/delete/:id',adminMiddleware, adminController.deleteBook);
 
-router.get('/bill-manage', adminController.billManage);
+router.get('/bill-manage',adminMiddleware, adminController.billManage);
 
-router.get('/bill-manage/get-data', adminController.getData);
+router.get('/bill-manage/get-data',adminMiddleware, adminController.getData);
 
-router.put('/bill-manage', adminController.updateOrderStatus);
+router.put('/bill-manage',adminMiddleware, adminController.updateOrderStatus);
 
-router.get('/profile', adminController.profile);
+router.get('/profile',adminMiddleware, adminController.profile);
 
 
 module.exports = router;

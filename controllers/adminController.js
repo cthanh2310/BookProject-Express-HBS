@@ -1,14 +1,50 @@
 const books = require('../models/book');
 const cloudinary = require('../utils/cloudinary.js');
 const orders = require('../models/order');
+const bcrypt = require('bcrypt');
+const users = require('../models/user');
+const jwt = require('jsonwebtoken');
 // const multer = require('multer');
 // const upload = multer({ dest:'./public/uploads/'});
 
 
 class adminController {
-    login(req, res, next) {
-        res.render('admin-login', { layout: 'admin-login' });
+    async login(req, res, next) {
+        const token = req.cookies['token'];
+        if (token) {
+            const { userId } = jwt.verify(token, process.env.SECRET_KEY);
+            const user = await users.findOne({_id: userId});
+            if (user.role == 'admin') return res.redirect('/admin/dashboard');
+            return res.render('admin-login', { layout: 'admin-login' });
+        } else {
+            res.render('admin-login', { layout: 'admin-login' });
+        }
     }
+    async login_post(req, res, next) {
+        let admin = await users.findOne({ email: req.body.email });
+        if (admin.role != 'admin') {
+            const err = new Error('Nhập chính xác tài khoản admin!');
+            err.statusCode = 400;
+            err.type = 'notAdminAccount'
+            return next(err);
+        }
+        if (bcrypt.compareSync(req.body.password, admin.password)) {
+            let token = jwt.sign({ userId: admin._id }, process.env.SECRET_KEY);
+            res.cookie('token', token, {
+                maxAge: 86400 * 1000, // 24 hours
+            });
+            return res.status(200).json({
+                message: 'Thành công!'
+            })
+        } else {
+            const err = new Error('Mật khẩu không chính xác!');
+            err.status = 400;
+            err.type = 'wrongPassword'
+            return next(err);
+        }
+    }
+
+
 
     dashboard(req, res, next) {
         res.render('dashboard', { layout: 'admin' });
@@ -16,7 +52,7 @@ class adminController {
     // book
     async bookManage(req, res, next) {
         try {
-            var listBook = await books.find({}).sort([['_id', -1]])
+            var listBook = await books.find({ }).sort([['_id', -1]])
                 .then(listBook => {
                     listBook = listBook.map(book => book.toObject());
                     return listBook;
@@ -29,7 +65,7 @@ class adminController {
     }
     async bookManage_post(req, res, next) {
         try {
-            await books.find({}).sort([['_id', -1]])
+            await books.find({ }).sort([['_id', -1]])
                 .then(async listBook => {
                     listBook = await listBook.map(book => book.toObject());
                     return res.json(listBook);
@@ -63,39 +99,36 @@ class adminController {
                 req.body.cloudinary_id = cloudinaryImage.public_id;
             }
             const bookID = req.body.id;
-            const book = await books.updateOne({_id: bookID}, { ...req.body }, { new: true, runValidators: true });
+            const book = await books.updateOne({ _id: bookID }, { ...req.body }, { new: true, runValidators: true });
             res.status(200).json({
                 status: 'Cập nhật thành công!',
-                data: {book},
+                data: { book },
             })
         } catch (err) {
             next(err);
         }
     }
     async deleteBook(req, res, next) {
-        try{
+        try {
             var dataId = req.params.id;
-            await books.deleteOne({_id: dataId});
-            console.log(req.params.id + ' is deleted');
+            await books.deleteOne({ _id: dataId });
             res.redirect('back');
-        } catch(err){
+        } catch (err) {
             next(err);
         }
     }
     async billManage(req, res, next) {
-        const listOrder = await orders.find({}).populate('listProduct.productId', ['name', 'price']).lean();
+        const listOrder = await orders.find({ }).populate('listProduct.productId', ['name', 'price']).lean();
         res.render('bill-manage', { layout: 'admin', listOrder });
     }
     async getData(req, res, next) {
-        console.log(req.body);
-
-        const listOrder = await orders.find({}).populate('listProduct.productId', ['name', 'price']).lean();
+        const listOrder = await orders.find({ }).populate('listProduct.productId', ['name', 'price']).lean();
         return res.json(listOrder);
     }
-    async updateOrderStatus(req, res, next){
+    async updateOrderStatus(req, res, next) {
         var listOrderIdAndStatus = req.body;
-        listOrderIdAndStatus.forEach(async OrderIdAndStatus =>{
-            await orders.findOneAndUpdate({ _id: OrderIdAndStatus.orderId }, {status: OrderIdAndStatus.status});
+        listOrderIdAndStatus.forEach(async OrderIdAndStatus => {
+            await orders.findOneAndUpdate({ _id: OrderIdAndStatus.orderId }, { status: OrderIdAndStatus.status });
         })
         res.status(200).json({
             status: 'Update thành công!',

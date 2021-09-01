@@ -50,7 +50,7 @@
     </div>
 </div>
 
-<script>
+<script src="/javascripts/login.js"></script>
     function setCookie(cname, cvalue, exdays) {
         const d = new Date();
         d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
@@ -79,8 +79,6 @@
             let email = document.querySelector('#email').value;
             axios.post('/auth/login', { email, password })
                 .then(function (response) {
-                    console.log('vo response')
-                    console.log(response)
                     document.getElementById('span-validate').style.display = 'none'
                     window.location.href = '/'
                 })
@@ -88,7 +86,6 @@
                     if (error.response) {
                         // The request was made and the server responded with a status code
                         // that falls out of the range of 2xx
-                        console.log(error.response)
                         document.getElementById('span-validate').innerHTML = error.response.data.message;
                     } else if (error.request) {
                         // The request was made but no response was received

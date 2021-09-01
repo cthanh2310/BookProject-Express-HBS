@@ -1,4 +1,4 @@
-function toggleMenu(){
+function toggleMenu() {
     let toggle = document.querySelector('.main__topbar-toggle');
     let navigation = document.querySelector('.navigation');
     let main = document.querySelector('.main');
@@ -7,12 +7,12 @@ function toggleMenu(){
     main.classList.toggle('active');
 
 }
-(function(){
+(function () {
     let btn_statistical = document.querySelector('.navigation__list-item-link--statistical');
-    btn_statistical.onclick = function(){
+    btn_statistical.onclick = function () {
         let ul_statistical = document.querySelector('.navigation__list-item--statistical');
         let icon = document.querySelector('.navigation__list-item-icon-dropdown');
-        
+
         icon.classList.toggle('rotate');
         ul_statistical.classList.toggle('show');
     }
@@ -33,3 +33,21 @@ function toggleMenu(){
 //         }
 //     })
 // })()
+function logoutAdmin() {
+    function setCookie(cname, cvalue, exMins) {
+        var d = new Date();
+        d.setTime(d.getTime() + (exMins * 60 * 1000));
+        var expires = "expires=" + d.toUTCString();
+        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+    }
+    const logout = document.getElementById('admin-logout');
+    if (logout) {
+        logout.addEventListener('click', function () {
+            setCookie('token', '', 0)
+            console.log('ok');
+        })
+
+    }
+}
+
+window.onload = logoutAdmin;

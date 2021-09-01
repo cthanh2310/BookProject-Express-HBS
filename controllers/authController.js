@@ -6,7 +6,7 @@ class authController {
     async login(req, res, next) {
         const token = req.cookies['token'];
         if (token) {
-            const userId = jwt.verify(token, process.env.SECRET_KEY);
+            const {userId} = jwt.verify(token, process.env.SECRET_KEY);
             if (userId) {
                 res.redirect('/');
             }
@@ -26,14 +26,13 @@ class authController {
             res.cookie('token', token, {
                 maxAge: 86400 * 1000, // 24 hours
             });
-            res.redirect('back');
-            // res.status(200).json({
-            //     status: 'Thành công!',
-            //     data: {
-            //         token: token,
-            //         email: user.email
-            //     },
-            // })
+            res.status(200).json({
+                status: 'Thành công!',
+                data: {
+                    token: token,
+                    email: user.email
+                },
+            })
         } else {
             const err = new Error('Mật khẩu nhập không chính xác');
             err.statusCode = 400;

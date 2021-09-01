@@ -8,7 +8,7 @@ const bookSchema = new mongoose.Schema({
         require: [true, 'Tên sách là bắt buộc']
     },
     dateOfSubmit: {
-        type: Date,
+        type: String,
         required: [true, 'Thời gian bắt buộc nhập! ']
     },
     price: {
