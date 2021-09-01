@@ -2,9 +2,9 @@
   display: flex;
   justify-content: center;
 }
-.auth-form__row--center{
-    display: flex;
-    justify-content: center;
+.auth-form__row--center {
+  display: flex;
+  justify-content: center;
 }
 .auth-form {
   width: 500px;
@@ -49,20 +49,25 @@
   outline: none;
   margin-top: 15px;
 }
-// Register 
-.auth-form__policy-description{
-    text-align: center;
-    padding: 0 16px;
+.span-validate{
+  padding: 5px;
+  font-size: 1.3rem;
+  color: red;
 }
-.auth-form__policy-description-p{
-    font-size: 1.5rem;
+// Register
+.auth-form__policy-description {
+  text-align: center;
+  padding: 0 16px;
 }
-.auth-form__policy-description-a{
-    color: var(--red-color);
-    text-decoration: none;
+.auth-form__policy-description-p {
+  font-size: 1.5rem;
+}
+.auth-form__policy-description-a {
+  color: var(--red-color);
+  text-decoration: none;
 }
 
-// 
+//
 .auth-form__aside {
   margin-top: 18px;
 }
@@ -132,9 +137,9 @@
   text-decoration: none;
   line-height: 28px;
 }
-.auth-form__socials-icon{
-    margin-right: 10px;
-    margin-left: -10px;
+.auth-form__socials-icon {
+  margin-right: 10px;
+  margin-left: -10px;
 }
 .auth-form__socials--facebook .auth-form__socials-icon {
   background-color: #3a5a98;
@@ -145,23 +150,24 @@
   color: var(--white-color);
 }
 .auth-form__socials-title {
-    height: 32px;
-    line-height: 32px;
-    
+  height: 32px;
+  line-height: 32px;
 }
 .auth-form__socials--google {
   background-color: var(--white-color);
   text-decoration: none;
   line-height: 28px;
 }
-.auth-form__socials--facebook, .auth-form__socials--google{
-    border-radius: 3px;
-    display: inline-block;
-    padding: 0 30px;
-    font-size: 1.3rem;
+.auth-form__socials--facebook,
+.auth-form__socials--google {
+  border-radius: 3px;
+  display: inline-block;
+  padding: 0 30px;
+  font-size: 1.3rem;
 }
-.auth-form__socials--facebook:hover, .auth-form__socials--google:hover{
-    font-weight:600;
+.auth-form__socials--facebook:hover,
+.auth-form__socials--google:hover {
+  font-weight: 600;
 }
 .auth-form__help {
   display: flex;

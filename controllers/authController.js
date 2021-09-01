@@ -5,9 +5,9 @@ const bcrypt = require('bcrypt');
 class authController {
     async login(req, res, next) {
         const token = req.cookies['token'];
-        if(token){
+        if (token) {
             const userId = jwt.verify(token, process.env.SECRET_KEY);
-            if(userId){
+            if (userId) {
                 res.redirect('/');
             }
         } else {
@@ -41,7 +41,7 @@ class authController {
         }
     }
     async logout(req, res, next) {
-        req.session.destroy(function(e){
+        req.session.destroy(function (e) {
             req.logout();
             res.redirect('/');
         });
@@ -49,6 +49,20 @@ class authController {
 
     async register_post(req, res, next) {
         try {
+            let regexEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+            if (!req.body.email.match(regexEmail)) {
+                const err = new Error('Nhập đúng định dạng email!');
+                err.statusCode = 400;
+                err.type = 'emailNotMatch'
+                return next(err);
+            }
+            let regexPassword = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/
+            if (!req.body.password.match(regexPassword)) {
+                const err = new Error('Mật khẩu ít nhất 8 ký tự, bao gồm số, kí tự hoa và thường!');
+                err.statusCode = 400;
+                err.type = 'passwordNotMatch'
+                return next(err);
+            }
             if (req.body.password == req.body.confirmPassword) {
                 const user = await users.create({
                     email: req.body.email,
@@ -62,6 +76,7 @@ class authController {
             } else {
                 const err = new Error('Nhập mật khẩu không trùng khớp');
                 err.statusCode = 400;
+                err.type = 'twoPasswordNotMatch'
                 return next(err);
             }
 

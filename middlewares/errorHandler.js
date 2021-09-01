@@ -4,7 +4,8 @@ exports.errorHandler = function(err, req, res, next){
     if(err.code === 11000){      // handle error register
         for(let i in err.keyValue){
             err.statusCode = 400;
-            err.message = `${i} already exists!`;
+            err.message = `${i.charAt(0).toUpperCase() + i.slice(1)} đã tồn tại!`;
+            err.type = `${i}Exist`
         }
     }
     // handle error when update || delete one post (hacker change userID)
@@ -24,6 +25,7 @@ exports.errorHandler = function(err, req, res, next){
 
     res.status(err.statusCode).json({
         status: 'fail',
-        message: err.message
+        message: err.message,
+        type: err.type,
     })
 }

@@ -8,7 +8,6 @@ const userSchema = new mongoose.Schema({
         trim: true,
         unique: true,
         lowercase: true,
-        match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Điền đúng định dạng email!'],
         require: [true, 'Bắt buộc nhập email']
     },
     password: {

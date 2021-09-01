@@ -49,6 +49,11 @@
   outline: none;
   margin-top: 15px; }
 
+.span-validate {
+  padding: 5px;
+  font-size: 1.3rem;
+  color: red; }
+
 .auth-form__policy-description {
   text-align: center;
   padding: 0 16px; }
@@ -150,13 +155,15 @@
   text-decoration: none;
   line-height: 28px; }
 
-.auth-form__socials--facebook, .auth-form__socials--google {
+.auth-form__socials--facebook,
+.auth-form__socials--google {
   border-radius: 3px;
   display: inline-block;
   padding: 0 30px;
   font-size: 1.3rem; }
 
-.auth-form__socials--facebook:hover, .auth-form__socials--google:hover {
+.auth-form__socials--facebook:hover,
+.auth-form__socials--google:hover {
   font-weight: 600; }
 
 .auth-form__help {
