@@ -21,7 +21,12 @@ class authController {
             err.statusCode = 400;
             return next(err);
         }
-        if (bcrypt.compareSync(req.body.password, user.password)) {
+        if(!user.password){
+            const err = new Error('Dùng phương thức đăng nhập khác!')
+            err.statusCode = 400;
+            return next(err);
+        }
+        if (bcrypt.compare(req.body.password, user.password)) {
             const token = jwt.sign({ userId: user.id }, process.env.SECRET_KEY);
             res.cookie('token', token, {
                 maxAge: 86400 * 1000, // 24 hours
