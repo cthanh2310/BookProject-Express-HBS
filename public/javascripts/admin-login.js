@@ -25,6 +25,10 @@ function loginAdmin() {
                         resetErrorAdmin()
                         document.getElementById('password-span').innerHTML = errorResponse.message;
                         break;
+                    case 'notEmailFound':
+                        resetErrorAdmin()
+                        document.getElementById('email-span').innerHTML = errorResponse.message;
+                        break;
                 }
             })
     })

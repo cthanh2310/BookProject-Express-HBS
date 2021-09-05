@@ -3,6 +3,7 @@ const cloudinary = require('../utils/cloudinary.js');
 const orders = require('../models/order');
 const bcrypt = require('bcrypt');
 const users = require('../models/user');
+const reviews = require('../models/review');
 const jwt = require('jsonwebtoken');
 // const multer = require('multer');
 // const upload = multer({ dest:'./public/uploads/'});
@@ -12,16 +13,28 @@ class adminController {
     async login(req, res, next) {
         const token = req.cookies['token'];
         if (token) {
-            const { userId } = jwt.verify(token, process.env.SECRET_KEY);
-            const user = await users.findOne({_id: userId});
-            if (user.role == 'admin') return res.redirect('/admin/dashboard');
-            return res.render('admin-login', { layout: 'admin-login' });
+            await jwt.verify(token, process.env.SECRET_KEY, async (err, userIdVerify) => {
+                if (err) return res.status(401).json({
+                    message: 'Admin không tồn tại!'
+                });
+                let { userId } = userIdVerify;
+                let user = await users.findOne({ _id: userId });
+                if (user.role == 'admin') return res.redirect('/admin/dashboard');
+
+            })
         } else {
-            res.render('admin-login', { layout: 'admin-login' });
+            return res.render('admin-login', { layout: 'admin-login' });
         }
     }
     async login_post(req, res, next) {
         let admin = await users.findOne({ email: req.body.email });
+        if (!admin) {
+            const err = new Error('Email không chính xác');
+            err.statusCode = 400;
+            err.type = 'notEmailFound'
+            return next(err);
+
+        }
         if (admin.role != 'admin') {
             const err = new Error('Nhập chính xác tài khoản admin!');
             err.statusCode = 400;
@@ -46,13 +59,47 @@ class adminController {
 
 
 
-    dashboard(req, res, next) {
-        res.render('dashboard', { layout: 'admin' });
+    async dashboard(req, res, next) {
+        var d = new Date(Date.now());
+        console.log(d.toISOString())
+        const monthlyIncome = await orders.aggregate([
+            {
+                $match: {
+                    status: 'delivered',
+                }
+            },
+            {
+                $group: {
+                    _id: null,
+                    earnings: {
+                        $sum: '$totalPrice'
+                    },
+
+                    count: { $sum: 1 }
+                }
+            }
+
+        ])
+        const monthlyReview = await reviews.aggregate([
+            {
+                $group: {
+                    _id: null,
+                    count: { $sum: 1 }
+                }
+            }
+        ])
+
+        console.log('review: ' + monthlyReview[0].count)
+        console.log('earning: ' + monthlyIncome[0].earnings)
+        console.log('sales: ' + monthlyIncome[0].count)
+
+
+        res.render('dashboard', { layout: 'admin', reviewNumber: monthlyReview[0].count, earning: monthlyIncome[0].earnings, count: monthlyIncome[0].count });
     }
     // book
     async bookManage(req, res, next) {
         try {
-            var listBook = await books.find({ }).sort([['_id', -1]])
+            var listBook = await books.find({}).sort([['_id', -1]])
                 .then(listBook => {
                     listBook = listBook.map(book => book.toObject());
                     return listBook;
@@ -65,7 +112,7 @@ class adminController {
     }
     async bookManage_post(req, res, next) {
         try {
-            await books.find({ }).sort([['_id', -1]])
+            await books.find({}).sort([['_id', -1]])
                 .then(async listBook => {
                     listBook = await listBook.map(book => book.toObject());
                     return res.json(listBook);
@@ -118,11 +165,11 @@ class adminController {
         }
     }
     async billManage(req, res, next) {
-        const listOrder = await orders.find({ }).populate('listProduct.productId', ['name', 'price']).lean();
+        const listOrder = await orders.find({}).populate('listProduct.productId', ['name', 'price']).lean();
         res.render('bill-manage', { layout: 'admin', listOrder });
     }
     async getData(req, res, next) {
-        const listOrder = await orders.find({ }).populate('listProduct.productId', ['name', 'price']).lean();
+        const listOrder = await orders.find({}).populate('listProduct.productId', ['name', 'price']).lean();
         return res.json(listOrder);
     }
     async updateOrderStatus(req, res, next) {

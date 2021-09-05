@@ -6,10 +6,12 @@ class authController {
     async login(req, res, next) {
         const token = req.cookies['token'];
         if (token) {
-            const {userId} = jwt.verify(token, process.env.SECRET_KEY);
-            if (userId) {
+            jwt.verify(token, process.env.SECRET_KEY, (err, user) => {
+                if (err) return res.status(401).json({
+                    message: 'Không tìm thấy người dùng'
+                })
                 res.redirect('/');
-            }
+            });
         } else {
             res.render('login', { layout: 'auth' });
         }
@@ -21,17 +23,17 @@ class authController {
             err.statusCode = 400;
             return next(err);
         }
-        if(!user.password){
+        if (!user.password) {
             const err = new Error('Dùng phương thức đăng nhập khác!')
             err.statusCode = 400;
             return next(err);
         }
-        if (bcrypt.compare(req.body.password, user.password)) {
+        if (bcrypt.compareSync(req.body.password, user.password)) {
             const token = jwt.sign({ userId: user.id }, process.env.SECRET_KEY);
             res.cookie('token', token, {
                 maxAge: 86400 * 1000, // 24 hours
             });
-            res.status(200).json({
+            return res.status(200).json({
                 status: 'Thành công!',
                 data: {
                     token: token,
@@ -70,7 +72,7 @@ class authController {
             if (req.body.password == req.body.confirmPassword) {
                 const user = await users.create({
                     email: req.body.email,
-                    password: req.body.password
+                    password: req.body.password,
                 })
                 const token = jwt.sign({ userId: user.id }, process.env.SECRET_KEY);
                 res.status(200).json({

@@ -4,23 +4,19 @@ const orders = require('../models/order');
 
 class orderController {
     async order(req, res, next) {
-        const token = req.cookies['token'];
-        if (token) {
-            const { userId } = await jwt.verify(token, process.env.SECRET_KEY);
-            const user = await users.findOne({ _id: userId })
-                .then(user => {
-                    return user.toObject();
-                })
-                .catch((err) => {
-                    return next(err);
-                })
+        const { userId } = req.user;   // Destructuring ES6
+        const user = await users.findOne({ _id: userId })
+            .then(user => {
+                return user.toObject();
+            })
+            .catch((err) => {
+                return next(err);
+            })
 
 
 
-            const listOrder = await orders.find({ customerAccount: userId, $or: [{ status: 'pending' }] }).populate('listProduct.productId', ['name', 'price', 'image']).lean();
-            return res.render('order', { user, listOrder });
-        }
-        res.render('order');
+        const listOrder = await orders.find({ customerAccount: userId, $or: [{ status: 'pending' }] }).populate('listProduct.productId', ['name', 'price', 'image']).lean();
+        return res.render('order', { user, listOrder });
     }
     async order_cancel(req, res, next) {
         console.log('orderId: ', req.body.orderId);
@@ -35,13 +31,9 @@ class orderController {
             })
     }
     async getListOrder(req, res, next) {
-        const token = req.cookies['token'];
-        if (token) {
-            const { userId } = await jwt.verify(token, process.env.SECRET_KEY);
-            const listOrder = await orders.find({customerAccount: userId}).populate('listProduct.productId', ['name', 'price', 'image']).lean();
-            return res.status(200).json(listOrder);
-        }
-
+        const { userId } = req.user;   // Destructuring ES6
+        const listOrder = await orders.find({ customerAccount: userId }).populate('listProduct.productId', ['name', 'price', 'image']).lean();
+        return res.status(200).json(listOrder);
     }
 }
 

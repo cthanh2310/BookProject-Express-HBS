@@ -20,8 +20,10 @@
                     <div class="col l-3 m-6 c-12">
                         <div class="main__cardbox-card">
                             <div class="main__cardbox-card-contain">
-                                <div class="main__cardbox-card-name">Doanh số</div>
-                                <div class="main__cardbox-card-numbers">67</div>
+                                <a href="/admin/bill-manage" style="text-decoration: none; color: #333">
+                                    <div class="main__cardbox-card-name">Doanh số</div>
+                                    <div class="main__cardbox-card-numbers">{{count}}</div>
+                                </a>
                             </div>
                             <div class="main__cardbox-card-icon">
                                 <i class="fas fa-shopping-cart"></i>
@@ -32,7 +34,7 @@
                         <div class="main__cardbox-card">
                             <div class="main__cardbox-card-contain">
                                 <div class="main__cardbox-card-name">Đánh giá</div>
-                                <div class="main__cardbox-card-numbers">15</div>
+                                <div class="main__cardbox-card-numbers">{{reviewNumber}}</div>
                             </div>
                             <div class="main__cardbox-card-icon">
                                 <i class="fas fa-comment"></i>
@@ -42,8 +44,11 @@
                     <div class="col l-3 m-6 c-12">
                         <div class="main__cardbox-card">
                             <div class="main__cardbox-card-contain">
-                                <div class="main__cardbox-card-name">Kiếm được</div>
-                                <div class="main__cardbox-card-numbers">12,312,871đ</div>
+                                <a href="/admin/bill-manage" style="text-decoration: none; color: #333">
+                                    <div class="main__cardbox-card-name">Kiếm được</div>
+                                    <div class="main__cardbox-card-numbers">{{convertToVND earning}}</div>
+                                </a>
+
                             </div>
                             <div class="main__cardbox-card-icon">
                                 <i class="fas fa-dollar-sign"></i>
@@ -60,73 +65,73 @@
                 <div class="row">
                     <div class="col l-8 m-12 c-12">
                         <div class="main__details-recent-orders">
-                        <div class="main__details-cardheader">
-                            <h2>Đơn hàng gần đây</h2>
-                            <a href="/admin/bill-manage" class="main__details-cardheader--btn">Xem tất cả</a>
+                            <div class="main__details-cardheader">
+                                <h2>Đơn hàng gần đây</h2>
+                                <a href="/admin/bill-manage" class="main__details-cardheader--btn">Xem tất cả</a>
+                            </div>
+                            <table class="recent__orders-table">
+                                <thead class="recent__orders-thead">
+                                    <tr class="recent__orders-tr--modifier">
+                                        <td class="recent__orders-td">Sản phẩm</td>
+                                        <td class="recent__orders-td">Giá</td>
+                                        <td class="recent__orders-td">Thanh toán</td>
+                                        <td class="recent__orders-td">Trạng thái</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="recent__orders-tr">
+                                        <td>Đời ngắn đừng ngủ dài</td>
+                                        <td>37,000đ</td>
+                                        <td>Đã thanh toán</td>
+                                        <td><span class="status delivered">Đã giao hàng</span></td>
+                                    </tr>
+                                    <tr class="recent__orders-tr">
+                                        <td>Nhà giả kim</td>
+                                        <td>25,580đ</td>
+                                        <td>Đến hạn</td>
+                                        <td><span class="status pending">Đang chờ xử lí</span></td>
+                                    </tr>
+                                    <tr class="recent__orders-tr">
+                                        <td>Hôn môi em</td>
+                                        <td>60,000đ</td>
+                                        <td>Đã thanh toán</td>
+                                        <td><span class="status return">Trả lại</span></td>
+                                    </tr>
+                                    <tr class="recent__orders-tr">
+                                        <td>Tuổi trẻ đáng giá bao nhiêu</td>
+                                        <td>98,200đ</td>
+                                        <td>Đến hạn</td>
+                                        <td><span class="status pending">Đang chờ xử lí</span></td>
+                                    </tr>
+                                    <tr class="recent__orders-tr">
+                                        <td>Đời ngắn đừng ngủ dài</td>
+                                        <td>37,000đ</td>
+                                        <td>Đã thanh toán</td>
+                                        <td><span class="status delivered">Đã giao hàng</span></td>
+                                    </tr>
+                                    <tr class="recent__orders-tr">
+                                        <td>Nhà giả kim</td>
+                                        <td>25,580đ</td>
+                                        <td>Đến hạn</td>
+                                        <td><span class="status pending">Đang chờ xử lí</span></td>
+                                    </tr>
+                                    <tr class="recent__orders-tr">
+                                        <td>Hôn môi em</td>
+                                        <td>60,000đ</td>
+                                        <td>Đã thanh toán</td>
+                                        <td><span class="status return">Trả lại</span></td>
+                                    </tr>
+                                    <tr class="recent__orders-tr">
+                                        <td>Hello mặt trời</td>
+                                        <td>98,200đ</td>
+                                        <td>Đến hạn</td>
+                                        <td><span class="status inprogress">Đang giao hàng</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
-                        <table class="recent__orders-table">
-                            <thead class="recent__orders-thead">
-                                <tr class="recent__orders-tr--modifier">
-                                    <td class="recent__orders-td">Sản phẩm</td>
-                                    <td class="recent__orders-td">Giá</td>
-                                    <td class="recent__orders-td">Thanh toán</td>
-                                    <td class="recent__orders-td">Trạng thái</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr class="recent__orders-tr">
-                                    <td>Đời ngắn đừng ngủ dài</td>
-                                    <td>37,000đ</td>
-                                    <td>Đã thanh toán</td>
-                                    <td><span class="status delivered">Đã giao hàng</span></td>
-                                </tr>
-                                <tr class="recent__orders-tr">
-                                    <td>Nhà giả kim</td>
-                                    <td>25,580đ</td>
-                                    <td>Đến hạn</td>
-                                    <td><span class="status pending">Đang chờ xử lí</span></td>
-                                </tr>
-                                <tr class="recent__orders-tr">
-                                    <td>Hôn môi em</td>
-                                    <td>60,000đ</td>
-                                    <td>Đã thanh toán</td>
-                                    <td><span class="status return">Trả lại</span></td>
-                                </tr>
-                                <tr class="recent__orders-tr">
-                                    <td>Tuổi trẻ đáng giá bao nhiêu</td>
-                                    <td>98,200đ</td>
-                                    <td>Đến hạn</td>
-                                    <td><span class="status pending">Đang chờ xử lí</span></td>
-                                </tr>
-                                <tr class="recent__orders-tr">
-                                    <td>Đời ngắn đừng ngủ dài</td>
-                                    <td>37,000đ</td>
-                                    <td>Đã thanh toán</td>
-                                    <td><span class="status delivered">Đã giao hàng</span></td>
-                                </tr>
-                                <tr class="recent__orders-tr">
-                                    <td>Nhà giả kim</td>
-                                    <td>25,580đ</td>
-                                    <td>Đến hạn</td>
-                                    <td><span class="status pending">Đang chờ xử lí</span></td>
-                                </tr>
-                                <tr class="recent__orders-tr">
-                                    <td>Hôn môi em</td>
-                                    <td>60,000đ</td>
-                                    <td>Đã thanh toán</td>
-                                    <td><span class="status return">Trả lại</span></td>
-                                </tr>
-                                <tr class="recent__orders-tr">
-                                    <td>Hello mặt trời</td>
-                                    <td>98,200đ</td>
-                                    <td>Đến hạn</td>
-                                    <td><span class="status inprogress">Đang giao hàng</span></td>
-                                </tr>
-                            </tbody>
-                        </table>
                     </div>
-                    </div>
-                    <div class="col l-4 m-12 c-12">   
+                    <div class="col l-4 m-12 c-12">
                         <div class="main__details-recent-customers">
                             <div class="recent-customers__card-header">
                                 <h2>Khách hàng gần đây</h2>
@@ -167,4 +172,5 @@
         </div>
     </div>
 </div>
-<script src="/javascripts/dashboard.js"></script>
+
+<script src="/javascripts/dashboard.js"></>

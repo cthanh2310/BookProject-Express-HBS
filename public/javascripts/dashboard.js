@@ -48,6 +48,7 @@ function logoutAdmin() {
         })
 
     }
+
 }
 
 window.onload = logoutAdmin;

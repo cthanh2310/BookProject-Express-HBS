@@ -3,15 +3,15 @@ const users = require('../models/user');
 async function adminMiddleware(req, res, next) {
     const token = req.cookies['token'];
     if (token) {
-        const {userId} = jwt.verify(token, process.env.SECRET_KEY);
-        await users.findOne({_id: userId})
-            .then(user => {
-                if(user.role == 'admin') return next();
-                res.redirect('/admin/login');
+        jwt.verify(token, process.env.SECRET_KEY, (err, user) => {
+            if (err) return res.status(401).json({
+                message: 'Không tìm thấy người dùng!'
             })
-            .catch(err => {
-                res.redirect('/admin/login')
-            })
+            req.user = user;
+            console.log(user)
+            next();
+        });
+
     } else {
         res.redirect('/admin/login');
     }
